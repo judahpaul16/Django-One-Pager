@@ -8,6 +8,7 @@ from autoslug import AutoSlugField
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
+    intro = models.TextField(max_length=100, blank=True)
     post_image = models.ImageField(default='default_post.png', upload_to='post-pics')
     timestamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -23,6 +24,7 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        self.intro = self.content[0:240]
         super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

@@ -3,67 +3,74 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% load static %}
-    <main>
-        <!--? Hero Start -->
-        <div class="slider-area " style="background-image: url({% static 'assets/img/gallery/section_bg03.png' %});">
-            <div class="slider-height2 d-flex align-items-center" style="background-size: contain; background-image: url({{ object.post_image.url }});">
+<article class="blog-post px-3 py-5 p-md-5">
+    <div class="container">
+        <header class="blog-post-header">
+            <h2 class="title mb-2">{{ post.title }}</h2>
+            <div class="meta mb-3"><span class="date">Published {{ post.timestamp|date:"F d, Y @ f a" }}</span><span class="time">5 min read</span><span class="comment"><a href="#">4 comments</a></span></div>
+        </header>
+        
+        <div class="blog-post-body">
+            <figure class="blog-banner">
+                <a href="#"><img class="img-fluid" style="margin: 10px auto 20px; display: block;" src="{{ post.post_image.url }}" alt="image"></a>
+                <figcaption class="mt-2 text-center image-caption">Image Credit: <a href="#" target="_blank">Placeholder for image credit</a></figcaption>
+            </figure>
+            <p>{{ post.content }}</p>
+        
+        <div class="blog-comments-section">
+            <div id="disqus_thread"></div>
+            <script>
+                /**
+                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT 
+                 *  THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR 
+                 *  PLATFORM OR CMS.
+                 *  
+                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: 
+                 *  https://disqus.com/admin/universalcode/#configuration-variables
+                 */
+                /*
+                var disqus_config = function () {
+                    // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.url = PAGE_URL;  
+                    
+                    // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    this.page.identifier = PAGE_IDENTIFIER; 
+                };
+                */
+                
+                (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+                    var d = document, s = d.createElement('script');
+                    
+                    // IMPORTANT: Replace 3wmthemes with your forum shortname!
+                    s.src = 'https://3wmthemes.disqus.com/embed.js';
+                    
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>
+                Please enable JavaScript to view the 
+                <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+                    comments powered by Disqus.
+                </a>
+            </noscript>
+        </div><!--//blog-comments-section-->
+        
+    </div><!--//container-->
+</article>
+
+<section class="cta-section theme-bg-light py-5">
+    <div class="container text-center">
+        <h2 class="heading">Newsletter</h2>
+        <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
+        <form class="signup-form form-inline justify-content-center pt-3">
+            <div class="form-group">
+                <label class="sr-only" for="semail">Your email</label>
+                <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Enter email">
             </div>
-        </div>
-        <!-- Hero End -->
-        <section class="blog_area section-padding" style="background-color: #fafbff">    
-            <div class="container">
-                <article class="media content-section">
-                    <a href="{% url 'user-posts' object.author.username %}">
-                        <img style="max-width: 325px; max-height: 325px" class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
-                    </a>
-                <div style="padding-left: 50px;padding-right: 50px" class="media-body">
-                    <h2 class="article-title mb-4" style="text-align: center;">{{ object.title }}</h2>
-                    <div class="article-metadata">
-                        <a class="mr-2" style="color: #000000" href="{% url 'user-posts' post.author.username %}">{{ object.author.first_name }} {{ object.author.last_name }}</a>
-                        <small class="text-muted">{{ object.timestamp|date:"F d, Y" }}</small>
-                    </div>
-                    <p class="article-content">{{ object.content }}</p>
-                    {% if object.author == user %}
-                    <div class="form-group mt-3" style="text-align: right;">
-                        <a class="button boxed-btn mt-2 mb-1" type="submit" href="{% url 'post-update' object.id object.slug %}">Update</a>
-                        <a class="button boxed-btn mt-2 mb-1" type="submit" href="{% url 'post-delete' object.id object.slug %}">Delete</a>
-                    </div>
-                    {% endif %}
-                </div>
-            </article>
-        </section> 
-    </main>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+    </div><!--//container-->
+</section>
 
-    <!-- JS here -->
-    
-    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
-    <script src="{% static 'assets/js/popper.min.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
-
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'assets/js/slick.min.js' %}"></script>
-    <!-- One Page, Animated-HeadLin -->
-    <script src="{% static 'assets/js/wow.min.js' %}"></script>
-    <script src="{% static 'assets/js/animated.headline.js' %}"></script>
-    
-    <!-- Nice-select, sticky -->
-    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
-
-    <!-- contact js -->
-    <script src="{% static 'assets/js/contact.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.form.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'assets/js/mail-script.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
-    
-    <!-- Jquery Plugins, main Jquery -->    
-    <script src="{% static 'assets/js/plugins.js' %}"></script>
-    <script src="{% static 'assets/js/main.js' %}"></script>
 {% endblock content %}

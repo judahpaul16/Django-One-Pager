@@ -6,7 +6,7 @@ from .models import Post, Testemonial
 
 class PostListView(ListView):
     model = Post
-    template_name = 'home.html'
+    template_name = 'index.html'
     context_object_name = 'posts'
     ordering = ['-timestamp']
     paginate_by = 3
@@ -72,7 +72,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class TestemonialListView(ListView):
     model = Testemonial
-    template_name = 'home.html'
+    template_name = 'base.html'
     context_object_name = 'testemonials'
     ordering = ['-timestamp']
     
