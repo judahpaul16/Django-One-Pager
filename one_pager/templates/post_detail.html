@@ -7,7 +7,7 @@
     <div class="container">
         <header class="blog-post-header">
             <h2 class="title mb-2">{{ post.title }}</h2>
-            <div class="meta mb-3"><span class="date">Published {{ post.timestamp|date:"F d, Y @ f a" }}</span><span class="time">5 min read</span><span class="comment"><a href="#">4 comments</a></span></div>
+            <div class="meta mb-3"><span class="date">Published {{ post.timestamp|date:"F d, Y @ f a" }}</span><span class="comment"><a href="#">4 comments</a></span></div>
         </header>
         
         <div class="blog-post-body">
@@ -16,7 +16,17 @@
                 <figcaption class="mt-2 text-center image-caption">Image Credit: <a href="#" target="_blank">Placeholder for image credit</a></figcaption>
             </figure>
             <p>{{ post.content }}</p>
+        </div>
         
+        {% if user.is_authenticated %}
+        <div class="container">
+            <form class="form-inline justify-content-center mt-4 mb-4">
+                <a class="btn btn-primary mr-2" type="submit" href="{% url 'post-update' post.id post.slug %}">Edit Post</a>
+                <a class="btn btn-primary" type="submit" href="{% url 'post-delete' post.id post.slug %}">Delete Post</a>
+            </form>
+        </div>
+        {% endif %}
+
         <div class="blog-comments-section">
             <div id="disqus_thread"></div>
             <script>
@@ -66,7 +76,8 @@
         <form class="signup-form form-inline justify-content-center pt-3">
             <div class="form-group">
                 <label class="sr-only" for="semail">Your email</label>
-                <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Enter email">
+                <input type="tel" id="phone" name="phone" pattern="[+]{1}[0-9]{11,14}" class="form-control mr-md-1" style="max-width: 200px;" placeholder="Phone #" required>
+                <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Email Address">
             </div>
             <button type="submit" class="btn btn-primary">Subscribe</button>
         </form>

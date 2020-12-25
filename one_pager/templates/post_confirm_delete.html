@@ -2,70 +2,16 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-    <main>
-        <!--? Hero Start -->
-        <div class="slider-area ">
-            <div class="slider-height2 d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="hero-cap hero-cap2 text-center">
-                                <h2 style="font-family:'Biko'">Delete Post?</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<section style="margin: 290px auto; display:block">
+    <div class="container">
+        <h2 style="text-align: center">Are you sure you want to delete the post<br>"{{ object.title }}"?</br></h2>
+        <form method="POST" class="form-inline justify-content-center mt-4 mb-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <a class="btn btn-primary mr-2" href="{% url 'post-detail' object.id object.slug %}">Cancel</a>
+                <a class="btn btn-primary" style="color: white;" type="submit">Confirm</a>
             </div>
-        </div>
-        <!-- Hero End -->
-    <section class="blog_area section-padding">    
-        <div class="inline-flex" style="width: 1100px; margin: auto;">
-            <div class="hero-cap hero-cap2 text-center">
-                <form method="POST">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        <h2>Are you sure you want to delete the post "{{ object.title }}?"</h2>
-                    </fieldset>
-                    <div class="form-group">
-                        <a class="button boxed-btn mt-2 mb-1" href="{% url 'post-detail' object.id object.slug %}">Cancel</a>
-                        <button class="button boxed-btn mb-1mt-4" type="submit">Confirm</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section> 
-    </main>
-
-    <!-- JS here -->
-    
-    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
-    <script src="{% static 'assets/js/popper.min.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
-
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'assets/js/slick.min.js' %}"></script>
-    <!-- One Page, Animated-HeadLin -->
-    <script src="{% static 'assets/js/wow.min.js' %}"></script>
-    <script src="{% static 'assets/js/animated.headline.js' %}"></script>
-    
-    <!-- Nice-select, sticky -->
-    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
-
-    <!-- contact js -->
-    <script src="{% static 'assets/js/contact.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.form.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'assets/js/mail-script.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
-    
-    <!-- Jquery Plugins, main Jquery -->    
-    <script src="{% static 'assets/js/plugins.js' %}"></script>
-    <script src="{% static 'assets/js/main.js' %}"></script>
+        </form>
+    </div><!--//container-->
+</section>
 {% endblock content %}
