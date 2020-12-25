@@ -1,0 +1,91 @@
+
+<!doctype html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static %}
+    <main>
+        <!--? Hero Start -->
+        <div class="slider-area ">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 text-center">
+                                <h2 style="font-family:'Biko">Account Details for {{ user.first_name }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+        <section style="background-color: #faf7ff; padding-left: 300px;padding-right: 300px;" class="section-padding">
+            <div class="content-section">
+                <div class="media" style="margin: auto; width: 650px;">
+                <img class="rounded-circle account-img" style="height: 300px; width: 300px" src="{{ user.profile.image.url }}">
+                    <div style="margin: auto; height: 269px;max-width: 450px; text-align: center;" class="media-body">
+                        <h2 style="padding-bottom: 15px" class="account-heading">{{ user.first_name }} {{ user.last_name }}</h2>
+                        <p class="text-secondary">{{ user.email }}</p>
+                        <p class="text-secondary">{{ user.profile.school }}</p>
+                        <form action="{% url 'password_reset' %}">
+                            <div class="form-group">
+                                <button class="btn btn-info mt-4">Reset Password</button>
+                            </div>
+                        <small class="text-muted ">Forgot Password?</small>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="d-inline-block" style="padding-top: 60px">
+            <!-- Form Start -->
+                <div class="container" style="text-align: left; margin: auto; width: 1068px">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            {{ u_form|crispy }}
+                            {{ p_form|crispy }}
+                        </fieldset>
+                        <div class="form-group" style="text-align: left;">
+                            <button class="button boxed-btn mt-2 mb-1" type="submit">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+            <!-- Form End -->
+            </div>
+        </section>
+    </main>
+
+    <!-- JS here -->
+    
+    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/slick.min.js' %}"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/animated.headline.js' %}"></script>
+    
+    <!-- Nice-select, sticky -->
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+
+    <!-- contact js -->
+    <script src="{% static 'assets/js/contact.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.form.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/js/mail-script.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->    
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+{% endblock content %}

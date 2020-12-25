@@ -1,0 +1,179 @@
+<!doctype html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static %}
+    <main>
+        <!--? Hero Start -->
+        <div class="slider-area ">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 text-center">
+                                <h2 style="font-family:'Biko'">Placeholder Heading</h2>
+                                <h3 style="padding-bottom: 20px; color: white; font-family:'Biko'">Placeholder Subheading</h3>
+                                <form action="">
+                                    <button class="btn btn-outline-info">Link to GoFundMe</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+        <!--================Blog Area =================-->
+        <section class="blog_area" style="background-color: #e6ecfc">
+        <h2 class="headline" style="padding-right: 250px; padding-left: 250px;padding-bottom: 50px; padding-top: 50px;font-size: 1.75em; text-align: center;font-family: 'Biko'; "><i>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </i></h2>
+        <hr class="style1 mb-5" style="margin: auto; width: 1325px; height: 1px;background-color:#001475;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mb-5 mb-lg-0">
+                        <div class="blog_left_sidebar">
+                            <h2 class="headline" style="padding-bottom: 20px;text-align: center;font-family: 'Biko';">
+                                Latest Posts
+                            </h2>
+                            <div class="text-muted" style="text-align: center;font-family: 'Biko'">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                            </div>
+                            <hr style="margin-left: 100px; margin-right: 100px; margin-bottom: 40px;text-align: center;height: 1px;background-color:#001475;">
+                        {% for post in posts %}
+                        <article class="blog_item" style="background-color: #ffffff">
+                            <div class="blog_details">
+                            <div class="blog_item_img mb-3">
+                                <a href="{% url 'post-detail' post.id post.slug %}">
+                                    <img src="{{ post.post_image.url }}" width="100%" height= "auto" frameBorder="0" scrolling="no"></img>
+                                </a>
+                            </div>
+                                <a href="{% url 'user-posts' post.author.username %}"><img class="rounded-circle" src="{{ post.author.profile.image.url }}" width="100" height="100" style="padding: 10px"></a>
+                                <a class="d-inline-block" style="text-align: center; width: 560px; padding-left: 10px; padding-right: 10px" href="{% url 'post-detail' post.id post.slug %}">
+                                    <h2 class="blog-head" style="color: #000000;">{{ post.title }}</h2>
+                                </a>
+                                <p class="mt-2" style="color: #000000;">{{ post.content }}</p>
+                                <ul class="blog-info-link">
+                                    <li><a href="{% url 'user-posts' post.author.username %}" style="color: #000000;"><i class="fa fa-user"></i>{{ post.author.first_name }} {{ post.author.last_name }}</a></li>
+                                    <li><a href="#" style="color: #000000;"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                    <li><a href="#" style="color: #000000;"><i class="fa fa-comments"></i> #Tags</a></li>
+                                    <li><a href="#" style="color: #000000;"><i class="fa"></i>{{ post.timestamp|date:"F d, Y @ f a" }}</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                        {% endfor %}
+                        {% if is_paginated %}
+                            <nav class="blog-pagination justify-content-center d-flex">
+                                <ul class="pagination">
+                                    {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous">
+                                            <i class="ti-angle-left"></i></a>
+                                    </li>
+                                    {% endif %}
+
+                                    {% for num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == num %}
+                                            <li class="page-item">
+                                                <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                                            </li>
+                                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                            <li class="page-item">
+                                                <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
+                                            <i class="ti-angle-right"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                        <hr class="style1" style="margin-left: 100px; margin-right: 100px;text-align: center; height: 1px;background-color:#001475;">
+                        <div class="text-muted" style="padding-bottom: 50px;text-align: center;font-family: 'Biko'">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                        </div>                        
+                    </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar">
+                            {% if user.is_authenticated %}
+                            <aside class="single_sidebar_widget search_widget" style="background-color: #ffffff;">
+                                <form action="{% url 'post-create' %}">
+                                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn">Create a Post</button>
+                                </form>
+                            </aside>
+                            <aside class="single_sidebar_widget search_widget" style="background-color: #ffffff;">
+                                <form action="{% url 'testemonial-create' %}">
+                                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn">Submit a Testemonial</button>
+                                </form>
+                            </aside>
+                            {% else %}
+                            <aside class="single_sidebar_widget search_widget" style="background-color: #ffffff;">
+                                <form action="{% url 'testemonial-create' %}">
+                                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn">Submit a Testemonial</button>
+                                </form>
+                            </aside>
+                            {% endif %}
+                            <aside class="single_sidebar_widget popular_post_widget" style="background-color: #ffffff;">
+                                <h3 class="widget_title" style="color: #000000;">Testemonials</h3>
+                                {% for post in posts %}
+                                <div class="media post_item" style="max-height: 88px">
+                                    <a href="#"><img class="rounded-circle mt-3" src="{{ post.author.profile.image.url }}" style="margin: auto; width: 60px">
+                                    </a>
+                                    <div class="media-body">
+                                        <a href="{% url 'post-detail' post.id post.slug %}">
+                                            <p style="color: #000000;">{{ post.author.first_name }} {{ post.author.last_name }}</p>
+                                            <h3 style="color: #000000;">{{ post.title }}</h3>
+                                        </a>
+                                        <p style="color: #000000;">{{ post.timestamp|date:"F d, Y @ f a" }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================Blog Area =================-->
+    </main>
+
+    <!-- JS here -->
+    
+    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/slick.min.js' %}"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/animated.headline.js' %}"></script>
+    
+    <!-- Nice-select, sticky -->
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+
+    <!-- contact js -->
+    <script src="{% static 'assets/js/contact.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.form.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/js/mail-script.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->    
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,69 @@
+<!doctype html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static %}
+    <main>
+        <!--? Hero Start -->
+        <div class="slider-area " style="background-image: url({% static 'assets/img/gallery/section_bg03.png' %});">
+            <div class="slider-height2 d-flex align-items-center" style="background-size: contain; background-image: url({{ object.post_image.url }});">
+            </div>
+        </div>
+        <!-- Hero End -->
+        <section class="blog_area section-padding" style="background-color: #fafbff">    
+            <div class="container">
+                <article class="media content-section">
+                    <a href="{% url 'user-posts' object.author.username %}">
+                        <img style="max-width: 325px; max-height: 325px" class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+                    </a>
+                <div style="padding-left: 50px;padding-right: 50px" class="media-body">
+                    <h2 class="article-title mb-4" style="text-align: center;">{{ object.title }}</h2>
+                    <div class="article-metadata">
+                        <a class="mr-2" style="color: #000000" href="{% url 'user-posts' post.author.username %}">{{ object.author.first_name }} {{ object.author.last_name }}</a>
+                        <small class="text-muted">{{ object.timestamp|date:"F d, Y" }}</small>
+                    </div>
+                    <p class="article-content">{{ object.content }}</p>
+                    {% if object.author == user %}
+                    <div class="form-group mt-3" style="text-align: right;">
+                        <a class="button boxed-btn mt-2 mb-1" type="submit" href="{% url 'post-update' object.id object.slug %}">Update</a>
+                        <a class="button boxed-btn mt-2 mb-1" type="submit" href="{% url 'post-delete' object.id object.slug %}">Delete</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+        </section> 
+    </main>
+
+    <!-- JS here -->
+    
+    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/slick.min.js' %}"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/animated.headline.js' %}"></script>
+    
+    <!-- Nice-select, sticky -->
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+
+    <!-- contact js -->
+    <script src="{% static 'assets/js/contact.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.form.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/js/mail-script.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->    
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+{% endblock content %}
