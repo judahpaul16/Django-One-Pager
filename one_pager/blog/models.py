@@ -22,8 +22,7 @@ class Post(models.Model):
         return f'{self.author.first_name}\'s Post'
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
+        self.slug = slugify(self.title)
         self.intro = self.content[0:240]
         super(Post, self).save(*args, **kwargs)
 
