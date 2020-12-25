@@ -3,78 +3,28 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% load static %}
-    <main>
-        <!--? Hero Start -->
-        <div class="slider-area ">
-            <div class="slider-height2 d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="hero-cap hero-cap2 text-center">
-                                <h2 style="font-family:'Roboto'">Let's Get You Logged In</h2>
-                            </div>
-                        </div>
+    <section style="margin: 175px auto;">    
+        <div class="container">
+            <div class="text-left">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Log In</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Log In</button>
                     </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted mr-2">
+                        Forgot Your Password?<a class="ml-2" href="{% url 'password_reset' %}" style="color:black">Reset Password</a>
+                    </small>
+                    <small class="text-muted">
+                        Need an Account? <a class="ml-2" href="{% url 'register' %}" style="color:black">Create an Account</a>
+                    </small>
                 </div>
             </div>
         </div>
-        <!-- Hero End -->
-        <section class="blog_area section-padding" style="background-color: #faf7ff">    
-            <div class="container">
-                <div class="hero-cap hero-cap2 text-left">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <fieldset class="form-group">
-                            <legend class="border-bottom mb-4">Log In</legend>
-                            {{ form|crispy }}
-                        </fieldset>
-                        <div class="form-group">
-                            <button class="btn btn-outline-info" type="submit">Log In</button>
-                        </div>
-                    </form>
-                    <div class="border-top pt-3">
-                        <small class="text-muted mr-2">
-                            Forgot Your Password?<a class="ml-2" href="{% url 'password_reset' %}" style="color:black">Reset Password</a>
-                        </small>
-                        <small class="text-muted">
-                            Need an Account? <a class="ml-2" href="{% url 'register' %}" style="color:black">Create an Account</a>
-                        </small>
-                    </div>
-                </div>
-            </div>
-        </section> 
-    </main>
-
-    <!-- JS here -->
-    
-    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
-    <script src="{% static 'assets/js/popper.min.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
-
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'assets/js/slick.min.js' %}"></script>
-    <!-- One Page, Animated-HeadLin -->
-    <script src="{% static 'assets/js/wow.min.js' %}"></script>
-    <script src="{% static 'assets/js/animated.headline.js' %}"></script>
-    
-    <!-- Nice-select, sticky -->
-    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
-
-    <!-- contact js -->
-    <script src="{% static 'assets/js/contact.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.form.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'assets/js/mail-script.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
-    
-    <!-- Jquery Plugins, main Jquery -->    
-    <script src="{% static 'assets/js/plugins.js' %}"></script>
-    <script src="{% static 'assets/js/main.js' %}"></script>
+    </section>
 {% endblock content %}

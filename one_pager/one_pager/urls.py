@@ -26,7 +26,6 @@ from blog.views import (
     PostUpdateView,
     PostDeleteView,
     PostDetailView,
-    UserPostListView,
     TestemonialListView,
     TestemonialCreateView,
     TestemonialUpdateView,
@@ -37,7 +36,6 @@ from blog.views import (
 urlpatterns = [
     path('', PostListView.as_view(), name='home'),
     path('', TestemonialListView.as_view(), name='testemonials'),
-    path('user/<str:username>/', UserPostListView.as_view(), name='user-posts'),
     path('post/<int:pk>/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
     path('post/<int:pk>/<slug:slug>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/<slug:slug>/delete/', PostDeleteView.as_view(), name='post-delete'),
