@@ -2,3 +2,5 @@
 A simple blog app made with Python Django.
 
 ![](home_page.png)
+
+![](django_admin.png)
