@@ -26,21 +26,17 @@ from blog.views import (
     PostUpdateView,
     PostDeleteView,
     PostDetailView,
-    TestemonialListView,
     TestemonialCreateView,
     TestemonialUpdateView,
-    TestemonialDeleteView,
-    TestemonialDetailView,
+    TestemonialDeleteView
     )
 
 urlpatterns = [
     path('', PostListView.as_view(), name='home'),
-    path('', TestemonialListView.as_view(), name='testemonials'),
     path('post/<int:pk>/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
     path('post/<int:pk>/<slug:slug>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/<slug:slug>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
-    path('testemonial/<int:pk>/<slug:slug>/', TestemonialDetailView.as_view(), name='testemonial-detail'),
     path('testemonial/<int:pk>/<slug:slug>/update/', TestemonialUpdateView.as_view(), name='testemonial-update'),
     path('testemonial/<int:pk>/<slug:slug>/delete/', TestemonialDeleteView.as_view(), name='testemonial-delete'),
     path('testemonial/new/', TestemonialCreateView.as_view(), name='testemonial-create'),

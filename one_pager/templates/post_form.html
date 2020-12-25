@@ -2,20 +2,20 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% load static %}
-    <section style="margin: 70px auto;">    
-        <div class="container">
-            <h2>Edit Post Details</h2>
-            <div class="text-left">
-                <form method="POST">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        {{ form|crispy }}
-                    </fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Publish</button>
-                    </div>
-                </form>
-            </div>
+<section style="margin: 70px auto;">    
+    <div class="container">
+        <h2>Edit Post Details</h2>
+        <div class="text-left">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Publish</button>
+                </div>
+            </form>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock content %}

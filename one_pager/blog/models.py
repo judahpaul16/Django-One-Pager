@@ -48,4 +48,4 @@ class Testemonial(models.Model):
         super(Testemonial, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('testemonial-detail', kwargs={'pk': self.id, 'slug': self.slug})
+        return reverse('home')

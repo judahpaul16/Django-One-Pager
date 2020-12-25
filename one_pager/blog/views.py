@@ -12,8 +12,9 @@ class PostListView(ListView):
     paginate_by = 3
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)    
+        context = super().get_context_data(**kwargs)
         context['posts'] = Post.objects.all()
+        context['testemonials'] = Testemonial.objects.all()
         return context
 
 class PostDetailView(DetailView):
@@ -54,21 +55,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
-
-class TestemonialListView(ListView):
-    model = Testemonial
-    template_name = 'base.html'
-    context_object_name = 'testemonials'
-    ordering = ['-timestamp']
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)    
-        context['testemonials'] = Testemonial.objects.all()
-        return context
-
-class TestemonialDetailView(DetailView):
-    model = Testemonial
-    template_name = 'testemonial_detail.html'
 
 class TestemonialCreateView(LoginRequiredMixin, CreateView):
     model = Testemonial

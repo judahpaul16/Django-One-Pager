@@ -1,7 +1,5 @@
-<!doctype html>
 {% extends "base.html" %}
 {% block content %}
-{% load static %}
 <section style="margin: 290px auto; display:block">
     <div class="container">
         <h2 style="text-align: center">Are you sure you want to delete the post<br>"{{ object.title }}"?</br></h2>
@@ -9,9 +7,9 @@
             {% csrf_token %}
             <div class="form-group">
                 <a class="btn btn-primary mr-2" href="{% url 'post-detail' object.id object.slug %}">Cancel</a>
-                <a class="btn btn-primary" style="color: white;" type="submit">Confirm</a>
+                <button class="btn btn-primary" style="color: white;" type="submit">Confirm</button>
             </div>
         </form>
-    </div><!--//container-->
+    </div>
 </section>
 {% endblock content %}

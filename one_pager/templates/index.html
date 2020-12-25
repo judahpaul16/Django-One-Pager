@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-{% load static %}
     
     <section class="cta-section theme-bg-light py-5">
         <div class="container text-center">
@@ -33,8 +32,11 @@
                 </div><!--//media-->
             </div><!--//item-->
             {% endfor %}
-            
         </div>
     </section>
+    
+    {% block testemonial %} 
+        {% include 'testemonial.html' %}
+    {% endblock testemonial %}
 
 {% endblock content %}

@@ -18,7 +18,7 @@
             <p>{{ post.content }}</p>
         </div>
         
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and user.is_superuser %}
         <div class="container">
             <form class="form-inline justify-content-center mt-4 mb-4">
                 <a class="btn btn-primary mr-2" type="submit" href="{% url 'post-update' post.id post.slug %}">Edit Post</a>
