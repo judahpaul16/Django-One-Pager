@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "env\\Scripts\\python.exe",
+    "python.pythonPath": "C:\\Users\\Judah Paul\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
     "python.linting.pylintArgs": [
         "--load-plugins",
         "pylint_django"
