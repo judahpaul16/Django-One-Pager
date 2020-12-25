@@ -74,10 +74,11 @@
         <h2 class="heading">Newsletter</h2>
         <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
         <form class="signup-form form-inline justify-content-center pt-3">
+            {% csrf_token %}
             <div class="form-group">
                 <label class="sr-only" for="semail">Your email</label>
-                <input type="tel" id="phone" name="phone" pattern="[+]{1}[0-9]{11,14}" class="form-control mr-md-1" style="max-width: 200px;" placeholder="Phone #" required>
-                <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Email Address">
+                <input type="tel" id="phone" name="phone" pattern="[+]{1}[0-9]{11,14}" class="form-control mr-md-1" style="max-width: 200px;" placeholder="Phone # - Optional">
+                <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Email Address - Required">
             </div>
             <button type="submit" class="btn btn-primary">Subscribe</button>
         </form>

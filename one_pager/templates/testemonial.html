@@ -1,37 +1,36 @@
 {% block testemonial %}
 <section style="margin: 10px auto; display:block">
     <style>
-        .container1 {
+        .container2 {
         border: 2px solid #ccc;
-        background-color: #eee;
         border-radius: 5px;
-        padding: 25px;
-        margin: 25px 25px;
+        padding: 15px;
+        margin: 15px 225px;
         }
 
-        .container1::after {
+        .container2::after {
         content: "";
         clear: both;
         display: table;
         }
 
-        .container1 img {
+        .container2 img {
         float: left;
         margin-right: 20px;
         border-radius: 50%;
         }
 
-        .container1 span {
+        .container2 span {
         font-size: 20px;
         margin-right: 15px;
         }
 
         @media (max-width: 500px) {
-        .container1 {
+        .container2 {
             text-align: center;
         }
 
-        .container1 img {
+        .container2 img {
             margin: auto;
             float: none;
             display: block;
@@ -41,7 +40,7 @@
 
     <h2 style="text-align: center; font-family: Arial;">Testemonials</h2>
     {% for testemonial in testemonials %}
-        <div class="container1">
+        <div class="container2 theme-bg-light">
             <img src="{{ testemonial.author.profile.image.url }}" alt="Avatar" style="width:90px">
             <p><span>{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span>{{ testemonial.title }}</p>
             <p>{{ testemonial.content }}</p>
