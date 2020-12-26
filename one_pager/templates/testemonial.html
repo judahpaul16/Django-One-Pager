@@ -6,6 +6,7 @@
         border-radius: 5px;
         padding: 15px;
         margin: 15px 50px;
+        font-family: 'Segoe UI';
         }
 
         .container2::after {
@@ -38,7 +39,8 @@
         }
     </style>
 
-    <h2 style="text-align: center; font-family: Arial;">
+    <hr>
+    <h2 style="text-align: center; font-family: 'Segoe UI'">
         Testemonials
         {% if not user.is_authenticated %}
             <br><small style="font-size: medium;"><a href="{% url 'login' %}">Login</a> to submit a testemonial</small>
@@ -47,15 +49,19 @@
 
     {% for testemonial in testemonials %}
         <div class="container2 theme-bg-light">
-            <img src="{{ testemonial.author.profile.image.url }}" alt="Avatar" style="width:90px">
-            <p><span>{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span>{{ testemonial.title }}</p>
-            <p>{{ testemonial.content }}</p>
+            <img src="{{ testemonial.author.profile.image.url }}" alt="Avatar" style="margin: 15px auto 15px auto; width:130px;">
+            <div class="container" style="margin: 20px auto 20px auto">
+                <p class="d-inline"><span>{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span>{{ testemonial.timestamp|date:"F d, Y" }}</p><br>
+                <strong>{{ testemonial.title }}</strong><br>
+                <p class="d-inline" style="min-height: 36px;">{{ testemonial.content }}</p>
+            </div>
             {% if user.is_authenticated and user == testemonial.author %}
-                <form>
-                    <br>
+            <div class="container">
+                <form class="d-md-flex mt-3">
                     <a class="btn btn-primary mr-2" type="submit" href="{% url 'testemonial-update' testemonial.id testemonial.slug %}">Edit</a>
                     <a class="btn btn-primary" type="submit" href="{% url 'testemonial-delete' testemonial.id testemonial.slug %}">Delete</a>
                 </form>
+            </div>
             {% endif %}
         </div>
     {% endfor %}
