@@ -15,6 +15,9 @@ class Post(models.Model):
     slug = AutoSlugField(populate_from='title', default='', unique=True, null=False, editable=False)
     draft = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['-timestamp']
+
     def __unicode__(self):
         return f'{self.author.first_name}\'s Post'
 
@@ -35,6 +38,9 @@ class Testemonial(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from='title', default='', unique=True, null=False, editable=False)
+    
+    class Meta:
+        ordering = ['-timestamp']
 
     def __unicode__(self):
         return f'{self.author.first_name}\'s Testemonial'

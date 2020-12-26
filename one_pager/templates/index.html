@@ -20,7 +20,7 @@
     <section class="blog-list px-3 py-5 p-md-5">
         <div class="container">
 
-            {% for post in posts %}
+            {% for post in page_obj %}
             <div class="item mb-5">
                 <div class="media">
                     <a  href="{% url 'post-detail' post.id post.slug %}">    
@@ -29,15 +29,56 @@
                     <div class="media-body">
                         <h3 class="title mb-1"><a href="{% url 'post-detail' post.id post.slug %}">{{ post.title }}</a></h3>
                         <div class="meta mb-1"><span class="date">{{ post.timestamp|date:"F d, Y @ f a" }}</span><span class="comment"><a href="#">8 comments</a></span></div>
-                        <div class="intro">{{ post.intro }}...</div>
-                        <a class="more-link" href="{% url 'post-detail' post.id post.slug %}">Read more &rarr;</a>
+                        <div class="intro">
+                            {{ post.intro }}...  <a class="more-link" href="{% url 'post-detail' post.id post.slug %}">Read more &rarr;</a>
+                        </div>
                     </div><!--//media-body-->
                 </div><!--//media-->
             </div><!--//item-->
             {% endfor %}
         </div>
+
+        <div class="text-muted mb-2" style="text-align: center;">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </div>
+        {% if is_paginated %}
+        <div class="container">
+            <ul class="pagination" style="width: 13%; margin: auto;">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous" class="page-link">
+                        &larr;
+                    </a>
+                </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item">
+                        <a href="?page={{ num }}" class="page-link">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a href="?page={{ num }}" class="page-link">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next" class="page-link">
+                        &rarr;
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+        
     </section>
-    
+
     {% block testemonial %} 
         {% include 'testemonial.html' %}
     {% endblock testemonial %}
