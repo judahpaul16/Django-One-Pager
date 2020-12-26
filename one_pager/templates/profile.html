@@ -2,17 +2,21 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% load static %}
-        <section style="margin: 50px auto;">
+        <section style="margin: 100px auto;">
             <div class="content-section">
                 <div class="media" style="margin: auto; width: 650px;">
                 <img class="rounded-circle account-img" style="height: 256px; width: 256px" src="{{ user.profile.image.url }}">
                     <div style="margin: auto; height: 269px;max-width: 450px; text-align: center;" class="media-body">
                         <h2 style="padding-bottom: 15px" class="account-heading">Account Details</h2>
-                        <p class="text-secondary">{{ user.email }}</p>
-                        <p class="text-secondary">{{ user.profile.school }}</p>
+                        <p class="text-secondary">Welcome Back, {{ user.first_name }}!</p>
+                        <form action="{% url 'logout' %}">
+                            <div class="form-group">
+                                <button class="btn btn-primary">Logout</button>
+                            </div>
+                        </form>
                         <form action="{% url 'password_reset' %}">
                             <div class="form-group">
-                                <button class="btn btn-primary mt-4">Reset Password</button>
+                                <button class="btn btn-primary">Reset Password</button>
                             </div>
                         <small class="text-muted ">Forgot Password?</small>
                         </form>
@@ -28,7 +32,7 @@
                             {{ u_form|crispy }}
                             {{ p_form|crispy }}
                         </fieldset>
-                        <div class="form-group" style="text-align: left;">
+                        <div class="form-group" style="text-align: center;">
                             <button class="btn btn-primary mt-2 mb-1" type="submit">Update Profile</button>
                         </div>
                     </form>

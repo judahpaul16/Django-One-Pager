@@ -23,7 +23,9 @@
             {% for post in posts %}
             <div class="item mb-5">
                 <div class="media">
-                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ post.post_image.url }}" alt="image">
+                    <a  href="{% url 'post-detail' post.id post.slug %}">    
+                        <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ post.post_image.url }}" alt="image">
+                    </a>
                     <div class="media-body">
                         <h3 class="title mb-1"><a href="{% url 'post-detail' post.id post.slug %}">{{ post.title }}</a></h3>
                         <div class="meta mb-1"><span class="date">{{ post.timestamp|date:"F d, Y @ f a" }}</span><span class="comment"><a href="#">8 comments</a></span></div>

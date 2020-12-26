@@ -12,7 +12,7 @@
         
         <div class="blog-post-body">
             <figure class="blog-banner">
-                <a href="#"><img class="img-fluid" style="margin: 10px auto 20px; display: block;" src="{{ post.post_image.url }}" alt="image"></a>
+                <img class="img-fluid" style="margin: 10px auto 20px; display: block;" src="{{ post.post_image.url }}" alt="image">
                 <figcaption class="mt-2 text-center image-caption">Image Credit: <a href="#" target="_blank">Placeholder for image credit</a></figcaption>
             </figure>
             <p>{{ post.content }}</p>
@@ -71,8 +71,8 @@
 
 <section class="cta-section theme-bg-light py-5">
     <div class="container text-center">
-        <h2 class="heading">Newsletter</h2>
-        <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
+        <h2 class="heading">Join the Newsletter</h2>
+        <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
         <form class="signup-form form-inline justify-content-center pt-3">
             {% csrf_token %}
             <div class="form-group">
