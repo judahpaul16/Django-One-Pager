@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from .models import Post, Testemonial
+from django import forms
 
 class PostListView(ListView):
     model = Post
@@ -60,6 +61,13 @@ class TestemonialCreateView(LoginRequiredMixin, CreateView):
     model = Testemonial
     template_name = 'testemonial_form.html'
     fields = ['title', 'content']
+    widgets = {
+        'content' : forms.Textarea(attrs={
+            'rows': '5',
+            'cols': '90',
+            'maxlength': '240',
+        }),
+    }
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -69,6 +77,13 @@ class TestemonialUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
     model = Testemonial
     template_name = 'testemonial_form.html'
     fields = ['title', 'content']
+    widgets = {
+        'content' : forms.Textarea(attrs={
+            'rows': '5',
+            'cols': '90',
+            'maxlength': '240',
+        }),
+    }
 
     def form_valid(self, form):
         form.instance.author = self.request.user

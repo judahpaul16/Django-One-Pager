@@ -5,7 +5,7 @@
         border: 2px solid #ccc;
         border-radius: 5px;
         padding: 15px;
-        margin: 15px 225px;
+        margin: 15px 50px;
         }
 
         .container2::after {
@@ -38,14 +38,21 @@
         }
     </style>
 
-    <h2 style="text-align: center; font-family: Arial;">Testemonials</h2>
+    <h2 style="text-align: center; font-family: Arial;">
+        Testemonials
+        {% if not user.is_authenticated %}
+            <br><small style="font-size: medium;"><a href="{% url 'login' %}">Login</a> to submit a testemonial</small>
+        {% endif %}
+    </h2>
+
     {% for testemonial in testemonials %}
         <div class="container2 theme-bg-light">
             <img src="{{ testemonial.author.profile.image.url }}" alt="Avatar" style="width:90px">
             <p><span>{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span>{{ testemonial.title }}</p>
             <p>{{ testemonial.content }}</p>
             {% if user.is_authenticated and user == testemonial.author %}
-                <form class="form-inline">
+                <form>
+                    <br>
                     <a class="btn btn-primary mr-2" type="submit" href="{% url 'testemonial-update' testemonial.id testemonial.slug %}">Edit</a>
                     <a class="btn btn-primary" type="submit" href="{% url 'testemonial-delete' testemonial.id testemonial.slug %}">Delete</a>
                 </form>
