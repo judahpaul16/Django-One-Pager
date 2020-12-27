@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 from autoslug import AutoSlugField
+from PIL import Image
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -28,6 +29,13 @@ class Post(models.Model):
         self.slug = slugify(self.title)
         self.intro = self.content[0:240]
         super(Post, self).save(*args, **kwargs)
+
+        img = Image.open(self.post_image.path)
+
+        if img.height > 720 or img.width > 1280:
+            output_size = (1280,720)
+            img.thumbnail(output_size)
+            img.save(self.post_image.path)
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.id, 'slug': self.slug})

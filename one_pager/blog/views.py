@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from .models import Post, Testemonial
+from django.contrib import messages
 from django import forms
 
 class PostListView(ListView):
@@ -29,6 +30,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.success(self.request, f'Post successfully created!')
         return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -38,6 +40,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.success(self.request, f'Post successfully updated!')
         return super().form_valid(form)
 
     def test_func(self):
@@ -71,6 +74,7 @@ class TestemonialCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.success(self.request, f'Testemonial successfully updated!')
         return super().form_valid(form)
         
 class TestemonialUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -87,6 +91,7 @@ class TestemonialUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.success(self.request, f'Testemonial successfully updated!')
         return super().form_valid(form)
 
     def test_func(self):
