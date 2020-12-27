@@ -37,41 +37,54 @@
             </div><!--//item-->
             {% endfor %}
         </div>
+        
+        <style>
+            .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            margin: 0 4px;
+            border: 1px solid #ddd;
+            }
 
-        <div class="text-muted mb-2" style="text-align: center;">
+            .pagination a.active {
+            background-color: #5d6db4;
+            color: white;
+            border: 1px solid #5d6db4;
+            }
+
+            .pagination a:hover:not(.active) {color: white;background-color: #5d6db4;}
+
+        </style> <!-- pagination stylying -->
+
+        <div class="text-muted mb-3" style="text-align: center;">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
         </div>
         {% if is_paginated %}
-        <div class="container">
+        <div class="pagination">
             <ul class="pagination" style="width: 13%; margin: auto;">
                 {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous" class="page-link">
+                    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
                         &larr;
                     </a>
-                </li>
                 {% endif %}
                 {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
-                    <li class="page-item">
-                        <a href="?page={{ num }}" class="page-link">
+                        <a href="?page={{ num }}" class="active">
                             {{ num }}
                         </a>
-                    </li>
                     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <li class="page-item">
-                        <a href="?page={{ num }}" class="page-link">
+                        <a href="?page={{ num }}">
                             {{ num }}
                         </a>
-                    </li>
                     {% endif %}
                 {% endfor %}
                 {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next" class="page-link">
+                    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                         &rarr;
                     </a>
-                </li>
                 {% endif %}
             </ul>
         </div>

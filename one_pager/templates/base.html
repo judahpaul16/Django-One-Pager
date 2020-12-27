@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <header class="header text-center" style="font-family: Segoe UI"> 
+    <header class="header text-center" style="font-family: Helvetica"> 
 	    <h1 class="blog-name pt-lg-4 mb-0"><a href="{% url 'home' %}">Judah's Blog</a></h1>
         
 	    <nav class="navbar navbar-expand-lg navbar-dark" >
@@ -41,46 +41,112 @@
 				</div><!--//profile-section-->
 				
 				<ul class="navbar-nav flex-column text-center">
-					<li class="nav-item">
-					    <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home fa-fw mr-2"></i>Blog Home<span class="sr-only">(current)</span></a>
-                    </li>
-                    {% if user.is_authenticated and user.is_superuser %}
-					<li class="nav-item">
-					    <a class="nav-link" href="{% url 'post-create' %}"><i></i>+ New Blog Post +</a>
-                    </li>
-					<li class="nav-item">
-					    <a class="nav-link" href="{% url 'testemonial-create' %}"><i></i>+ New Testemonial +</a>
-                    </li>
-					<li class="nav-item">
-					    <a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user fa-fw mr-2"></i>Edit Account Details</a>
-                    </li>
-					<li class="nav-item active">
-					    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-user fa-fw mr-2"></i>Logout - Signed in as {{ user.first_name }}</a>
-                    {% elif user.is_authenticated %}
-					<li class="nav-item">
-					    <a class="nav-link" href="{% url 'testemonial-create' %}"><i></i>+ New Testemonial +</a>
-                    </li>
-					<li class="nav-item">
-					    <a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user fa-fw mr-2"></i>Edit Account Details</a>
-                    </li>
-					<li class="nav-item active">
-					    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-user fa-fw mr-2"></i>Logout - Signed in as {{ user.first_name }}</a>
-                    </li>
+                    {% if request.path == '/' %}
+                        <li class="nav-item  active">
                     {% else %}
-					<li class="nav-item active">
-					    <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-user fa-fw mr-2"></i>Login</a>
-                    </li>
-					<li class="nav-item active">
-					    <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user fa-fw mr-2"></i>Register</a>
-                    </li>
+                        <li class="nav-item">
+                    {% endif %}
+					        <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home fa-fw mr-2"></i>Blog Home<span class="sr-only">(current)</span></a>
+                        </li>
+
+                    {% if user.is_authenticated and user.is_superuser %}
+                        {% if request.path == '/profile/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user fa-fw mr-2"></i>Edit Account Details</a>
+                            </li>
+
+                        {% if request.path == '/logout/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-user fa-fw mr-1"></i>Logout<br>(Signed in as {{ user.first_name }})</a>
+                            </li>
+
+                        {% if request.path == '/post/new/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'post-create' %}"><i></i>+ New Blog Post +</a>
+                            </li>
+
+                        {% if request.path == '/testemonial/new/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'testemonial-create' %}"><i></i>+ New Testemonial +</a>
+                            </li>
+
+                    {% elif user.is_authenticated %}
+                        {% if request.path == '/profile/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user fa-fw mr-2"></i>Edit Account Details</a>
+                            </li>
+
+                        {% if request.path == '/logout/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-user fa-fw mr-2"></i>Logout - Signed in as {{ user.first_name }}</a>
+                            </li>
+
+                        {% if request.path == '/testemonial/new/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'testemonial-create' %}"><i></i>+ New Testemonial +</a>
+                            </li>
+
+                    {% else %}
+                        {% if request.path == '/login/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-user fa-fw mr-2"></i>Login</a>
+                            </li>
+
+                        {% if request.path == '/register/' %}
+                            <li class="nav-item  active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                                <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user fa-fw mr-2"></i>Register</a>
+                            </li>
+
                     {% endif %}
 				</ul>
 				
 				<div class="my-2 my-md-3">
 				    <a class="btn btn-primary" href="#" target="_blank">Support Me</a>
 				</div>
-			</div>
-		</nav>
+            </div> <!-- navigation -->
+        </nav>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div style="width: 100%; bottom: 0; position: absolute;">
+                    <div style="width: 90%; margin: 10px auto;"
+                    {% if messages.tags %} class="alert alert-{{ messages.tags }} alert-dismissible"
+                    {% else %} class="alert alert-info alert-dismissible" {% endif %} role="alert">
+                        <button type="btn btn-primary" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
     </header>
     
     <div class="main-wrapper">
@@ -89,10 +155,7 @@
         {% endblock content %}
     
         <footer class="footer text-center py-2 theme-bg-dark" style="margin-top: 50px;">
-        
-            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
-                <small class="copyright">Designed by <a href="#" target="_blank">Judah Paul</a></small>
-        
+            <small class="copyright">Designed by <a href="https://www.github.com/judahpaul16/" target="_blank">Judah Paul</a></small>
         </footer>
 
     </div><!--//main-wrapper-->

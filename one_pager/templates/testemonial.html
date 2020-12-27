@@ -51,13 +51,13 @@
         <div class="container2 theme-bg-light">
             <img src="{{ testemonial.author.profile.image.url }}" alt="Avatar" style="margin: 15px auto 15px auto; width:130px;">
             <div class="container" style="margin: 20px auto 20px auto">
-                <p class="d-inline"><span>{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span>{{ testemonial.timestamp|date:"F d, Y" }}</p><br>
+                <p class="d-inline"><span>{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span>{{ testemonial.timestamp|date:"F d, Y" }}</p><br><br>
                 <strong>{{ testemonial.title }}</strong><br>
                 <p class="d-inline" style="min-height: 36px;">{{ testemonial.content }}</p>
             </div>
             {% if user.is_authenticated and user == testemonial.author %}
             <div class="container">
-                <form class="d-md-flex mt-3">
+                <form class="d-md-flex mt-3 mb-2">
                     <a class="btn btn-primary mr-2" type="submit" href="{% url 'testemonial-update' testemonial.id testemonial.slug %}">Edit</a>
                     <a class="btn btn-primary" type="submit" href="{% url 'testemonial-delete' testemonial.id testemonial.slug %}">Delete</a>
                 </form>
