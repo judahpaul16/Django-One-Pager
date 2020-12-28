@@ -102,6 +102,7 @@
 	left:100%
 }
 .carousel-control{
+	transition: opacity .3s !important;
 	position:absolute;
 	top:0;
 	bottom:0;
@@ -134,6 +135,7 @@
 	background-repeat:repeat-x
 }
 .carousel-control:focus,.carousel-control:hover{
+	transition: opacity .3s !important;
 	color:#fff;
 	text-decoration:none;
 	outline:0;
@@ -162,9 +164,11 @@
 	line-height:1
 }
 .carousel-control .icon-prev:before{
-	content:"\2039"}
+	content:"\2039"
+}
 .carousel-control .icon-next:before{
-	content:"\203a"}
+	content:"\203a"
+}
 .carousel-indicators{
 	position:absolute;
 	bottom:10px;
@@ -176,7 +180,6 @@
 }
 .carousel-indicators li{
 	display:inline-block;
-	transition: width .3s;
 	width:10px;
 	height:10px;
 	margin:1px;
@@ -212,17 +215,22 @@
 		width:30px;
 		height:30px;
 		margin-top:-10px;
-	font-size:30px}
+		font-size:30px
+	}
 	.carousel-control .arrow-left,.carousel-control .icon-prev{
-	margin-left:-10px}
+		margin-left:-10px}
+
 	.carousel-control .arrow-right,.carousel-control .icon-next{
-	margin-right:-10px}
+		margin-right:-10px
+	}
 	.carousel-caption{
 		right:20%;
 		left:20%;
-	padding-bottom:30px}
+		padding-bottom:30px
+	}
 	.carousel-indicators{
-	bottom:20px}
+		bottom:20px
+	}
 }
 
 .media-body h3 a{
