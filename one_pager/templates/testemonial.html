@@ -8,10 +8,29 @@
     </h2>
 
     {% for testemonial in testemonials %}
-        <div class="testemonial theme-bg-light">
+        <div class="testemonial theme-bg-light mobile-hide" style="margin: 15px 180px !important;">
+            <img src="{{ testemonial.author.profile.image.url }}" alt="Avatar" style="margin: 20px 20px 20px 25px; width:130px;">
+            <div class="container" style="margin: 20px auto 15px auto">
+                <p class="d-inline"><span>{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span>{{ testemonial.timestamp|date:"F d, Y" }}</p><br><br>
+                <strong>{{ testemonial.title }}</strong><br>
+                <p class="d-inline" style="min-height: 36px;">{{ testemonial.content }}</p>
+            </div>
+            {% if user.is_authenticated and user == testemonial.author %}
+            <div class="test-container px-0">
+                <form class="d-md-flex center" style="width: 100%;">
+                    <a class="btn btn-primary mr-2" type="submit" href="{% url 'testemonial-update' testemonial.id testemonial.slug %}">Edit</a>
+                    <a class="btn btn-primary" type="submit" href="{% url 'testemonial-delete' testemonial.id testemonial.slug %}">Delete</a>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %} <!-- desktop testemonials -->
+
+    {% for testemonial in testemonials %}
+        <div class="testemonial theme-bg-light mobile-show">
             <img src="{{ testemonial.author.profile.image.url }}" alt="Avatar" style="margin: 15px auto 15px auto; width:130px;">
             <div class="container" style="margin: 20px auto 20px auto">
-                <p class="d-inline"><span>{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span>{{ testemonial.timestamp|date:"F d, Y" }}</p><br><br>
+                <p class="d-inline"><span style="margin: 0%;">{{ testemonial.author.first_name }} {{ testemonial.author.last_name }}</span><br>{{ testemonial.timestamp|date:"F d, Y" }}</p><br><br>
                 <strong>{{ testemonial.title }}</strong><br>
                 <p class="d-inline" style="min-height: 36px;">{{ testemonial.content }}</p>
             </div>
@@ -24,7 +43,7 @@
             </div>
             {% endif %}
         </div>
-    {% endfor %}
+    {% endfor %} <!-- mobile testemonials -->
     
 </section>
 {% endblock testemonial %}

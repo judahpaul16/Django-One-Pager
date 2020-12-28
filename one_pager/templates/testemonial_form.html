@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<section style="margin: 100px auto;">    
-    <div class="container">
-        <h2>Edit Testemonial</h2>
-        <div class="text-left">
-            <form method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    {{ form|crispy }}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-primary mr-2" type="submit">Submit</button>
-                    <a class="btn btn-primary" href="{% url 'home' %}">Cancel</a>
-                </div>
-            </form>
+    <section style="margin: 191.5px auto;">    
+        <div class="container">
+            <h2>Edit Testemonial</h2>
+            <div class="text-left">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-primary mr-2" type="submit">Submit</button>
+                        <a class="btn btn-primary" href="{% url 'home' %}">Cancel</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock content %}

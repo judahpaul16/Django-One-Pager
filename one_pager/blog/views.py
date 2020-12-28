@@ -8,12 +8,12 @@ from django import forms
 from django.conf import settings
 import os
 
-class PostListView(ListView):
+class HomeView(ListView):
     model = Post
     template_name = 'index.html'
     context_object_name = 'posts'
     ordering = ['-timestamp']
-    paginate_by = 4
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -69,9 +69,7 @@ class TestemonialCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'content']
     widgets = {
         'content' : forms.Textarea(attrs={
-            'rows': '5',
-            'cols': '90',
-            'maxlength': '240',
+            'maxlength': '120',
         }),
     }
 
@@ -86,9 +84,7 @@ class TestemonialUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
     fields = ['title', 'content']
     widgets = {
         'content' : forms.Textarea(attrs={
-            'rows': '5',
-            'cols': '90',
-            'maxlength': '240',
+            'maxlength': '120',
         }),
     }
 

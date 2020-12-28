@@ -41,8 +41,8 @@ class Post(models.Model):
         return reverse('post-detail', kwargs={'pk': self.id, 'slug': self.slug})
 
 class Testemonial(models.Model):
-    title = models.CharField(max_length=100)
-    content = models.TextField(max_length=240)
+    title = models.CharField(max_length=60)
+    content = models.TextField(max_length=120)
     timestamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from='title', default='', unique=True, null=False, editable=False)

@@ -150,10 +150,13 @@
         
         {% if messages %}
             {% for message in messages %}
-                <div style="width: 100%; bottom: 0; position: absolute;">
-                    <div style="width: 90%; margin: 10px auto;"
-                    {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible"
-                    {% else %} class="alert alert-info alert-dismissible" {% endif %} role="alert">
+                <div id="message">
+                    <div
+                        {% if message.tags %}
+                            class="alert alert-{{ message.tags }} alert-dismissible"
+                        {% else %}
+                            class="alert alert-info alert-dismissible"
+                        {% endif %} role="alert">
                         <button type="btn btn-primary" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -162,6 +165,8 @@
                 </div>
             {% endfor %}
         {% endif %}
+        <script type="text/javascript"> $("#message").delay(200).animate({"opacity": "1"}, 700) </script>
+
     </header>
     
     <div class="main-wrapper">
