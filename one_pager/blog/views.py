@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from .models import Post, Testemonial
 from django.contrib import messages
 from django import forms
+from django.conf import settings
+import os
 
 class PostListView(ListView):
     model = Post
@@ -17,6 +19,7 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         context['posts'] = Post.objects.all()
         context['testemonials'] = Testemonial.objects.all()
+        context['carousel_files'] = os.listdir(os.path.join(settings.STATIC_ROOT, "assets/images/carousel/"))
         return context
 
 class PostDetailView(DetailView):

@@ -1,9 +1,20 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    
-    <section class="cta-section theme-bg-light py-5">
-        <div class="container text-center">
+{% load static %}
+
+    <script type="text/javascript">
+        function hide(elementId) { 
+            document.getElementById(elementId).style.display="none";
+        }
+    </script>
+
+    <section class="cta-section theme-bg-light py-5 alert-dismissible mobile-hide"
+            style="padding: 48px 0px;" id="newsletter">
+        <button type="btn btn-primary" class="close" data-dismiss="modal" onclick="hide('newsletter')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="container text-center" style="position: relative; left: 25px;">
             <h2 class="heading">Join the Newsletter</h2>
             <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
             <form class="signup-form form-inline justify-content-center pt-3">
@@ -15,11 +26,79 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Subscribe</button>
             </form>
-        </div><!--//container-->
-    </section>
-    <section class="blog-list px-3 py-5 p-md-5">
-        <div class="container">
+        </div> <!--//container-->
+    </section> <!-- newsletter: show this on desktop -->
+    
+    <section class="cta-section theme-bg-light py-5 mobile-show">
+        <div class="container text-center">
+            <h2 class="heading">Join the Newsletter</h2>
+            <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
+            <form class="signup-form form-inline justify-content-center pt-3">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only" for="semail">Your email</label>
+                    <input
+                        type="tel" id="phone" name="phone" pattern="[+]{1}[0-9]{11,14}"
+                        class="form-control mr-md-1 mb-1" style="max-width: 200px; margin: auto;"
+                        placeholder="Phone # - Optional">
+                    <input
+                        type="email" id="semail" name="semail1"
+                        class="form-control mr-md-1 semail"
+                        placeholder="Email Address - Required">
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div> <!--//container-->
+    </section> <!-- newsletter: show this on mobile -->
 
+    <section class="cta-section mt-5">
+        <div class="container">
+            <p style="text-align: center; font-family: Cambria; font-style: italic; font-size: x-large;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+        </div>
+    </section>
+
+    <div class="container mt-5">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators" style="width: auto;">
+                {% for file in carousel_files %}
+                    {% if forloop.first %}
+                        <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                    {% else %}
+                        <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}"></li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                {% for file in carousel_files %}
+                    {% if forloop.first %}
+                        <div class="item active">
+                    {% elif not forloop.first %}
+                        <div class="item">
+                    {% endif %}
+                            <img src="{% static 'assets/images/carousel/'|add:file %}" style="width:100%;">
+                        </div>
+                {% endfor %}
+            </div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="arrow-left">&larr;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="arrow-right">&rarr;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+      </div>
+      <hr class="mt-5" style="width: 80%;">
+
+    <section class="blog-list px-3 py-5 p-md-5 mt-2">
+        <div class="container">
             {% for post in page_obj %}
             <div class="item mb-5">
                 <div class="media">
@@ -37,27 +116,6 @@
             </div><!--//item-->
             {% endfor %}
         </div>
-        
-        <style>
-            .pagination a {
-            color: black;
-            float: left;
-            padding: 8px 16px;
-            text-decoration: none;
-            transition: background-color .3s;
-            margin: 0 4px;
-            border: 1px solid #ddd;
-            }
-
-            .pagination a.active {
-            background-color: #5d6db4;
-            color: white;
-            border: 1px solid #5d6db4;
-            }
-
-            .pagination a:hover:not(.active) {color: white;background-color: #5d6db4;}
-
-        </style> <!-- pagination stylying -->
 
         <div class="text-muted mb-3" style="text-align: center;">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
@@ -89,8 +147,8 @@
                 </ul>
             </div>
         {% endif %}
-        
     </section>
+    <hr style="width: 80%;">
 
     {% block testemonial %} 
         {% include 'testemonial.html' %}
