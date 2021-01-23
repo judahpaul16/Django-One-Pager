@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<article class="centered px-3 py-5 p-md-5">
+    <div class="container" style="text-align: center">
+		<div class="container mb-3">
+        	<header class="blog-post-header">
+        		<h2 class="title mb-4">{{ curr_audio_file.header }}</h2>
+       		</header>
+       		{{ curr_audio_file.audio_file_player|safe }}
+		</div>
+		
+			<div class="block" style="text-align: center;">
+				<p>
+        			Select the option that best describes this recording and click on Submit.
+				<br><strong>
+        			**Note: You may only submit once per recording.
+    			</strong>
+    			</p>
+
+				<form method="POST">
+					{% csrf_token %}
+    				<input type="radio" name="audit" value="1">   Important
+    				<br><input type="radio" name="audit" value="2">   Not Important
+    				<br><input type="radio" name="audit" value="3">   Unsure
+
+    				<br><button class="my-1 btn btn-danger" type="button" onclick="submitAudit()">
+        				Submit
+   					</button><br>
+				</form>
+
+    			<script>
+        			function submitAudit() {
+						if (confirm('You may only submit once per recording. Are you sure you want to submit?')) {
+           					$('form').submit();
+       					} else {
+           					return false;
+						}
+            		
+        			}
+    			</script>
+			</div>
+
+		<div class="block mt-4">		
+			<select class="px-3 py-2" onchange="if (this.value) window.location.href=this.value" multiple>
+			{% for audio_file in audio_files %}
+				{% if curr_audio_file.id == audio_file.id %}
+					<option value="{% url 'audit-audio' audio_file.id %}" selected>{{ audio_file.id }}: {{ audio_file.header }}</a></option>
+				{% else %}
+					<option value="{% url 'audit-audio' audio_file.id %}">{{ audio_file.id }}: {{ audio_file.header }}</a></option>
+				{% endif %}
+			{% endfor %}
+			</select>
+		</div>
+
+	</div>
+</article>
+{% endblock content %}

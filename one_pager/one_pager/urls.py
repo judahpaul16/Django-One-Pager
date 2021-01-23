@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
 from profiles import views as user_views
+admin.autodiscover()
 
 from blog.views import (
     HomeView,
@@ -26,20 +27,32 @@ from blog.views import (
     PostUpdateView,
     PostDeleteView,
     PostDetailView,
-    TestemonialCreateView,
-    TestemonialUpdateView,
-    TestemonialDeleteView
+    TestimonialCreateView,
+    TestimonialUpdateView,
+    TestimonialDeleteView,
+    AudioFileAuditView,
+    AudioListView,
+    AudioDetailView,
+    VideoListView,
+    VideoDetailView,
+    ArchiveView
     )
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('archive/', ArchiveView.as_view(), name='archive'),
+    path('audit-audio/<int:pk>/', AudioFileAuditView.as_view(), name='audit-audio'),
+    path('audio/', AudioListView.as_view(), name='audio'),
+    path('audio/<int:pk>/', AudioDetailView.as_view(), name='audio-detail'),
+    path('videos/', VideoListView.as_view(), name='videos'),
+    path('videos/<int:pk>/', VideoDetailView.as_view(), name='video-detail'),
     path('post/<int:pk>/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
     path('post/<int:pk>/<slug:slug>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/<slug:slug>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
-    path('testemonial/<int:pk>/<slug:slug>/update/', TestemonialUpdateView.as_view(), name='testemonial-update'),
-    path('testemonial/<int:pk>/<slug:slug>/delete/', TestemonialDeleteView.as_view(), name='testemonial-delete'),
-    path('testemonial/new/', TestemonialCreateView.as_view(), name='testemonial-create'),
+    path('testimonial/update/', TestimonialUpdateView.as_view(), name='testimonial-update'),
+    path('testimonial/delete/', TestimonialDeleteView.as_view(), name='testimonial-delete'),
+    path('testimonial/new/', TestimonialCreateView.as_view(), name='testimonial-create'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('password-reset/',

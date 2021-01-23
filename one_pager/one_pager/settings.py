@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,12 +22,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '95rr!1@xu75g5qc&mn3h!&=y%^9c(cj4y5@!js0ad%dk7zkpx7'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE= True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['198.58.105.84']
 
 
 # Application definition
@@ -38,9 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # 3rd party
     'crispy_forms',
+    'audiofield',
+    'django_user_agents',
 
     # own
     'blog.apps.BlogConfig',
@@ -55,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'audiofield.middleware.threadlocals.ThreadLocals',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'one_pager.urls'
@@ -83,8 +94,12 @@ WSGI_APPLICATION = 'one_pager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'blog',
+        'USER': 'admin',
+        'PASSWORD': 'No$crash2020',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -106,7 +121,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -145,7 +159,18 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'judahpaul16@gmail.com'
-EMAIL_HOST_PASSWORD = 'ksclzorlhepkznxh'
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
 SITE_ID = 1
+
+# Frontend widget values
+# 0-Keep original, 1-Mono, 2-Stereo
+CHANNEL_TYPE_VALUE = 0
+
+# 0-Keep original, 8000-8000Hz, 16000-16000Hz, 22050-22050Hz,
+# 44100-44100Hz, 48000-48000Hz, 96000-96000Hz
+FREQ_TYPE_VALUE = 8000
+
+# 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-Convert to OGG
+CONVERT_TYPE_VALUE = 0

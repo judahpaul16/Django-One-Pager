@@ -1,0 +1,59 @@
+{% block testimonial %}
+<section style="margin: 10px auto; display:block">
+    <h2 style="text-align: center; font-family: 'Helvetica'; font-size: xxx-large; margin: 40px auto">
+        Testimonials
+        {% if not user.is_authenticated %}
+            <br><small style="font-size: medium;"><a href="{% url 'login' %}">Login</a> to submit a testimonial</small>
+        {% endif %}
+    </h2>
+	{% for testimonial in testimonials %}
+			<div class="testimonial theme-bg-light mobile-hide" style="margin: 2% 25% !important;">
+				<img src="{{ testimonial.author.profile.profile_picture.url }}" alt="Avatar" style="margin: 20px 20px 20px 25px; width:130px;">
+				<div class="container" style="margin: 20px auto 15px auto">
+					<p class="d-inline"><span>{{ testimonial.author.first_name }} {{ testimonial.author.last_name }}</span>{{ testimonial.timestamp|date:"F d, Y" }}</p><br><br>
+					<strong>{{ testimonial.title }}</strong><br>
+					<p class="d-inline" style="min-height: 36px;">{{ testimonial.content }}</p>
+				</div>
+				{% if user.is_authenticated %}
+				<div class="test-container px-0">
+					<form class="center" style="width: 100%;">
+						{% if user == testimonial.author %}
+							<a class="btn btn-primary mr-2" type="submit" href="{% url 'testimonial-update' %}">Edit</a>
+							<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' %}">Delete</a>
+						{% endif %}
+						{% if user.is_superuser and user != testimonial.author %}
+							<a class="btn btn-primary mr-2" type="submit" href="{% url 'testimonial-update' %}">Edit</a>
+							<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' %}">Delete</a>
+						{% endif %}
+					</form>
+				</div>
+				{% endif %}
+			</div>
+	{% endfor %} <!-- desktop testimonials -->
+ 
+    {% for testimonial in testimonials %}
+        <div class="testimonial theme-bg-light mobile-show">
+            <img src="{{ testimonial.author.profile.profile_picture.url }}" alt="Avatar" style="margin: 15px auto 15px auto; width:130px;">
+            <div class="container" style="margin: 20px auto 20px auto">
+                <p class="d-inline"><span style="margin: 0%;">{{ testimonial.author.first_name }} {{ testimonial.author.last_name }}</span><br>{{ testimonial.timestamp|date:"F d, Y" }}</p>
+				<br><br>
+                <strong>{{ testimonial.title }}</strong><br>
+                <p class="d-inline" style="min-height: 36px;">{{ testimonial.content }}</p>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="container">
+                <form class="d-md-flex mt-3 mb-2">
+					{% if user == testimonial.author %}
+                    	<a class="btn btn-primary mr-2" type="submit" href="{% url 'testimonial-update' %}">Edit</a>
+                    	<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' %}">Delete</a>
+					{% elif user.is_superuser %}
+						<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' %}">Delete</a>
+					{% endif %}
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %} <!-- mobile testimonials -->
+    
+</section>
+{% endblock testimonial %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load user_agents %}
+<article class="{% if request|is_mobile %}py-5 p-md-5{% else %} py-4{% endif %}">
+	<header class="px-2" style="text-align: center;">
+		<h2 style="font-size: xxx-large; margin: auto 0.2em;">
+			Video Archive
+		</h2>
+	</header>
+	<hr style="margin-bottom: 2rem; width: 80%;">
+    <div class="profile grid-container px-3 py-3" style="text-align: center; width: 90%; margin: 0 auto 1em;">
+		{% for video in page_obj %}
+			<div class="grid-item mb-2 px-2">
+        		<header class="blog-post-header">
+        			<h2 class="title mb-2">
+						<a style="text-decoration: none; color: #525987; font-size: 0.78em" href="{% url 'video-detail' video.id %}">{{ video.header }}</a>
+						</h2>
+       			</header>
+       			<a class="video-grid" href="{% url 'video-detail' video.id %}">{{ video.video_file_player|safe }}</a>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="text-muted mb-2" style="text-align: center;">
+		Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+	</div>
+	{% if is_paginated %}
+		<div class="pagination d-flex justify-content-center">
+			<ul class="pagination">
+				{% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+						&larr;
+					</a>
+				{% endif %}
+				{% for num in page_obj.paginator.page_range %}
+					{% if page_obj.number == num %}
+						<a href="?page={{ num }}" class="active">
+							{{ num }}
+						</a>
+					{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+						<a href="?page={{ num }}">
+							{{ num }}
+						</a>
+					{% endif %}
+				{% endfor %}
+				{% if page_obj.has_next %}
+					<a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+						&rarr;
+					</a>
+				{% endif %}
+			</ul>
+		</div>
+	{% endif %}
+</article>
+{% endblock content %}

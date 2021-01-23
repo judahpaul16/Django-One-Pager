@@ -3,55 +3,36 @@
 {% block content %}
 {% load static %}
 
-    <script type="text/javascript">
-        function hide(elementId) { 
-            document.getElementById(elementId).style.display="none";
-        }
-    </script>
+	<a name="top"></a>
+	<header class="footer text-center py-2 outer theme-bg-dark">
+		<div>
+			<div id="loop">
+				<small id="content" style="width: auto">
+					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</small>
+			</div>
+		</div>
+     </header>
 
-    <section class="cta-section theme-bg-light py-5 alert-dismissible mobile-hide"
-            style="padding: 48px 0px;" id="newsletter">
-        <button type="btn btn-primary" class="close" data-dismiss="modal" onclick="hide('newsletter')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="container text-center" style="position: relative; left: 25px;">
-            <h2 class="heading">Join the Newsletter</h2>
-            <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
-            <form class="signup-form form-inline justify-content-center pt-3">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label class="sr-only" for="semail">Your email</label>
-                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control mr-md-1" style="max-width: 200px;" placeholder="Phone # - Optional">
-                    <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Email Address - Required" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
-        </div> <!--//container-->
-    </section> <!-- newsletter: show this on desktop -->
-    
-    <section class="cta-section theme-bg-light py-5 mobile-show">
-        <div class="container text-center">
-            <h2 class="heading">Join the Newsletter</h2>
-            <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
-            <form class="signup-form form-inline justify-content-center pt-3">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label class="sr-only" for="semail">Your email</label>
-                    <input
-                        type="tel" id="phone" name="phone" pattern="[+]{1}[0-9]{11,14}"
-                        class="form-control mr-md-1 mb-2" style="max-width: 200px; margin: auto;"
-                        placeholder="Phone # - Optional">
-                    <input
-                        type="email" id="semail" name="semail1"
-                        class="form-control mr-md-1 mb-2 semail"
-                        placeholder="Email Address - Required">
-                </div>
-                <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
-        </div> <!--//container-->
-    </section> <!-- newsletter: show this on mobile -->
-
+	
     <div class="container mt-5">
+    	<div class="conatiner mb-5" style="text-align: center;">
+	    <h2 style="font-size: 50px;">&lt; Placeholder Blog Title &gt;</h2>
+    	</div>
+
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators" style="width: auto;">
@@ -87,19 +68,20 @@
         </div>
       </div>
 
-      <section class="cta-section mt-5">
+      <section class="cta-section mt-5 mb-5">
         <div class="container">
             <p style="text-align: center; font-family: Cambria; font-style: italic; font-size: x-large;">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+	   			Lorem ipsum dolor sit amet, consectetaur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
             </p>
         </div>
     </section>
+    <hr style="width: 75%; margin: 0 auto 13px;">
 
-      <hr class="mt-5" style="width: 80%;">
-
-    <section class="blog-list px-3 py-5 p-md-5 mt-2">
-        <div class="container">
+    <section class="blog-list px-3 py-5 p-md-5">
+        <div class="container px-5 py-5" style="background-color: #fafafb; border-radius: 25px; border-style: solid; border-color: #f0f0f0;">
+			<h1 style="margin-bottom: 1em; text-align: center">
+				Lastest Posts
+			</h1>
             {% for post in page_obj %}
             <div class="item mb-5">
                 <div class="media">
@@ -118,7 +100,7 @@
             {% endfor %}
         </div>
 
-        <div class="text-muted mb-3" style="text-align: center;">
+        <div class="text-muted py-3" style="text-align: center;">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
         </div>
         {% if is_paginated %}
@@ -149,10 +131,75 @@
             </div>
         {% endif %}
     </section>
-    <hr style="width: 80%; margin-top: 0;">
+    <hr style="width: 100%; margin: 0;">
+    <section class="cta-section theme-bg-light py-5 alert-dismissible mobile-hide"
+            style="padding: 48px 0px;" id="newsletter">
+        <div class="container text-center" style="position: relative; left: 25px;">
+            <h2 class="heading">Join the Newsletter</h2>
+            <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
+            <form class="signup-form form-inline justify-content-center pt-3">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only" for="semail">Your email</label>
+                    <input 
+						type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+						class="form-control mr-md-1" style="max-width: 200px;"
+						placeholder="Phone # - Optional">
+                    <input 
+						type="email" id="semail" name="semail1"
+						class="form-control mr-md-1 semail"
+						placeholder="Email Address - Required" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div> <!--//container-->
+    </section> <!-- newsletter: show this on desktop -->
+    
+    <section class="cta-section theme-bg-light py-5 mobile-show">
+        <div class="container text-center">
+            <h2 class="heading">Join the Newsletter</h2>
+            <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
+            <form class="signup-form form-inline justify-content-center pt-3">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only" for="semail">Your email</label>
+                    <input
+                        type="tel" id="phone" name="phone" pattern="[+]{1}[0-9]{11,14}"
+                        class="form-control mr-md-1 mb-2" style="max-width: 200px; margin: auto;"
+                        placeholder="Phone # - Optional">
+                    <input
+                        type="email" id="semail" name="semail1"
+                        class="form-control mr-md-1 mb-2 semail"
+                        placeholder="Email Address - Required" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div> <!--//container-->
+    </section> <!-- newsletter: show this on mobile -->
+    <hr style="width: 100%; margin-top: 0;">
 
-    {% block testemonial %} 
-        {% include 'testemonial.html' %}
-    {% endblock testemonial %}
+
+    {% block testimonial %} 
+        {% include 'testimonial.html' %}
+    {% endblock testimonial %}
+
+	<div class="callout mobile-hide">
+	  <div class="callout-header">Notification</div>
+	  <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+	  <div class="callout-container">
+		<p>Some text to describe the callout message. <a href="#">Learn more</a> or close it if it is in your way.</p>
+	  </div>
+	</div>
+        
+	<footer class="footer text-center py-2 theme-bg-dark" style="margin-top: 50px;">
+         <small class="copyright">Designed by 
+             <a 
+                 href="https://www.github.com/judahpaul16/"
+                 style="text-decoration : none;"
+                 target="_blank ">
+                 Judah Paul
+             </a>
+         </small>
+     </footer> <!-- Dev Credit-->
 
 {% endblock content %}

@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <section style="margin: 70px auto;">    
+{% load user_agents %}
+    <section class="profile centered py-5" {% if request|is_pc  %}style="width:60%; margin:auto"{% endif %}>    
         <div class="container">
-            <h2>Edit Post Details</h2>
+			{% if request.path == '/post/new/' %}
+            	<h2>Create New Post</h2>
+			{% else %}
+            	<h2>Edit Post Details</h2>
+			{% endif %}	
             <div class="text-left">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -13,7 +18,7 @@
                     </fieldset>
                     <div class="form-group">
                         <button class="btn btn-primary mr-2" type="submit">Publish</button>
-                        <a class="btn btn-primary" href="{% url 'home' %}">Cancel</a>
+                        <a class="btn btn-danger" href="{% url 'home' %}">Cancel</a>
                     </div>
                 </form>
             </div>

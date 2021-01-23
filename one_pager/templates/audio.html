@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<article class="py-5 p-md-5">
+	<header style="text-align: center;">
+		<h2 style="font-size: xxx-large; margin: auto 0.2em;">
+			Audio Archive
+		</h2>
+	</header>
+	<hr style="margin-bottom: 2rem; width: 80%;">
+    <div class="container" style="text-align: center; padding: 0; width: auto;">
+		{% for file in audio %}
+			<div class="container mb-3">
+        		<header class="blog-post-header">
+        			<h2 class="title mb-4"><a style="text-decoration: none" href="{% url 'audio-detail' file.id %}">{{ file.header }}</a></h2>
+       			</header>
+			</div>
+		{% endfor %}
+	</div>
+</article>
+{% endblock content %}

@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% load user_agents %}
 <html lang="en">
 <head>
     <title>Placeholder Title</title>
@@ -15,7 +16,49 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
     <!-- FontAwesome JS-->
-    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"
+		integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7"
+		crossorigin="anonymous"></script>
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$("#top").click(function(){
+				$('html, body').animate({scrollTop:0}, 'slow');
+				return false;
+			});
+
+		});
+
+        function hide(elementId) { 
+            document.getElementById(elementId).style.display="none";
+        }
+
+		// ===== Scroll to Top ==== 
+		$(window).scroll(function() {
+			if ($(this).scrollTop() >= 50) {    // If page is scrolled more than 50px
+				$('#top').fadeIn("fast");       // Fade in the arrow
+			} else {
+				$('#top').fadeOut("fast");      // Else fade out the arrow
+			}
+		});	
+
+		let outer = document.querySelector("#outer");
+		let content = outer.querySelector('#content');
+
+		repeatContent(content, outer.offsetWidth);
+
+		let el = outer.querySelector('#loop');
+		el.innerHTML = el.innerHTML + el.innerHTML;
+
+		function repeatContent(el, till) {
+			let html = el.innerHTML;
+			let counter = 0; // prevents infinite loop
+
+			while (el.offsetWidth < till && counter < 100) {
+				el.innerHTML += html;
+				counter += 1;
+			}
+		}
+    </script>
     
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
@@ -26,20 +69,31 @@
 </head>
 
 <body>
-    <header class="header text-center" style="font-family: Helvetica;"> 
-	    <h1 class="blog-name pt-lg-4 mb-0"><a href="{% url 'home' %}">Judah's Blog</a></h1>
+    <header id="header" class="header text-center" style="font-family: Helvetica;"> 
+	    <h1 class="blog-name pt-lg-4 mb-0"><a href="{% url 'home' %}">&lt; Placeholder &gt;</a></h1>
         
-	    <nav class="navbar navbar-expand-lg navbar-dark" >
+	    <nav id="mobile-nav" class="navbar navbar-expand-lg navbar-dark" style="display: table;">
            
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler"
+				{% if request|is_mobile %}
+					style="display: table;"
+				{% endif %}
+				type="button"
+				data-toggle="collapse"
+				data-target="#navigation"
+				aria-controls="navigation"
+				aria-expanded="false"
+				aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 			</button>
 
 			<div id="navigation" class="collapse navbar-collapse flex-column" >
 				<div class="profile-section pt-3 pt-lg-0">
-				    <img class="profile-image mb-3 rounded-circle mx-auto" src="{% static 'assets/images/default.jpg' %}" alt="image" >			
+				    <img class="profile-image mb-4 rounded-circle mx-auto" src="{% static 'assets/images/default.jpg' %}" alt="image" >			
 					
-					<div class="bio mb-3">Hi, my name is Judah Paul. &lt;Placeholder for bio&gt;<br><a href="#">Learn More</a></div><!--//bio-->
+				    <div class="bio mb-3">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
+					</div><!--//bio-->
 			        <hr> 
                 </div><!--//profile-section-->
 
@@ -52,7 +106,7 @@
 					        <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home fa-fw mr-2"></i>Blog Home<span class="sr-only">(current)</span></a>
                         </li>
 
-                    {% if user.is_authenticated and user.is_superuser %}
+                    {% if user.is_authenticated and user.is_staff %}
                         {% if request.path == '/profile/' %}
                             <li class="nav-item  active">
                         {% else %}
@@ -71,7 +125,9 @@
                                         <i class="fas fa-user fa-fw mr-1"></i>
                                         <span>Logout</span>
                                     </div>
-                                    (Signed in as {{ user.first_name }})
+                                    <small>
+										<strong>(Logged in as <span id="admin" {% if user.is_superuser %}style="color: #8dff5c"{% endif %}>{{ user.first_name }}</span>)</strong>
+									</small>
                                 </a>
                             </li>
 
@@ -83,12 +139,12 @@
                                 <a class="nav-link" href="{% url 'post-create' %}"><i></i>+ New Blog Post +</a>
                             </li>
 
-                        {% if request.path == '/testemonial/new/' %}
+                        {% if request.path == '/testimonial/new/' %}
                             <li class="nav-item  active">
                         {% else %}
                             <li class="nav-item">
                         {% endif %}
-                                <a class="nav-link" href="{% url 'testemonial-create' %}"><i></i>+ New Testemonial +</a>
+                                <a class="nav-link" href="{% url 'testimonial-create' %}"><i></i>+ New Testimonial +</a>
                             </li>
 
                     {% elif user.is_authenticated %}
@@ -110,16 +166,18 @@
                                         <i class="fas fa-user fa-fw mr-1"></i>
                                         <span>Logout</span>
                                     </div>
-                                    (Signed in as {{ user.first_name }})
+                                    <small>
+										<strong>(Logged in as <span>{{ user.first_name }}</span>)</strong>
+									</small>
                                 </a>
                             </li>
 
-                        {% if request.path == '/testemonial/new/' %}
+                        {% if request.path == '/testimonial/new/' %}
                             <li class="nav-item  active">
                         {% else %}
                             <li class="nav-item">
                         {% endif %}
-                                <a class="nav-link" href="{% url 'testemonial-create' %}"><i></i>+ New Testemonial +</a>
+                                <a class="nav-link" href="{% url 'testimonial-create' %}"><i></i>+ New Testimonial +</a>
                             </li>
 
                     {% else %}
@@ -174,19 +232,11 @@
 
         {% endblock content %}
     
-        <footer class="footer text-center py-2 theme-bg-dark" style="margin-top: 50px;">
-            <small class="copyright">Designed by 
-                <a 
-                    href="https://www.github.com/judahpaul16/"
-                    style="text-decoration : none;"
-                    target="_blank ">
-                    Judah Paul
-                </a>
-            </small>
-        </footer> <!-- Dev Credit-->
-
     </div><!--//main-wrapper-->
     
+	<!-- Return to Top -->
+	<a href="javascript:" id="top"><i style="margin-left: 8%; margin-bottom: 10%;">&uarr;</i></a>
+
     <!-- Javascript -->          
     <script src="{% static 'assets/plugins/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'assets/plugins/popper.min.js' %}"></script> 

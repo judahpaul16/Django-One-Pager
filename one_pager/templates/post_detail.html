@@ -20,7 +20,14 @@
         <div class="container">
             <form class="form-inline justify-content-center mt-4 mb-4">
                 <a class="btn btn-primary mr-2" type="submit" href="{% url 'post-update' post.id post.slug %}">Edit Post</a>
-                <a class="btn btn-primary" type="submit" href="{% url 'post-delete' post.id post.slug %}">Delete Post</a>
+                <a class="btn btn-danger" type="submit" href="{% url 'post-delete' post.id post.slug %}">Delete Post</a>
+            </form>
+        </div>
+        {% elif user == post.author %}
+        <div class="container">
+            <form class="form-inline justify-content-center mt-4 mb-4">
+                <a class="btn btn-primary mr-2" type="submit" href="{% url 'post-update' post.id post.slug %}">Edit Post</a>
+                <a class="btn btn-danger" type="submit" href="{% url 'post-delete' post.id post.slug %}">Delete Post</a>
             </form>
         </div>
         {% endif %}
@@ -67,20 +74,43 @@
     </div><!--//container-->
 </article>
 
-<section class="cta-section theme-bg-light py-5" id="bottom-newsletter">
-    <div class="container text-center">
-        <h2 class="heading">Join the Newsletter</h2>
-        <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
-        <form class="signup-form form-inline justify-content-center pt-3">
-            {% csrf_token %}
-            <div class="form-group">
-                <label class="sr-only" for="semail">Your email</label>
-                <input type="tel" id="phone" name="phone" pattern="[+]{1}[0-9]{11,14}" class="form-control mr-md-1" style="max-width: 200px;" placeholder="Phone # - Optional">
-                <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Email Address - Required">
-            </div>
-            <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
-    </div><!--//container-->
-</section>
+    <section class="cta-section theme-bg-light py-5 alert-dismissible mobile-hide"
+            style="padding: 48px 0px;" id="newsletter">
+        <div class="container text-center" style="position: relative; left: 25px;">
+            <h2 class="heading">Join the Newsletter</h2>
+            <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
+            <form class="signup-form form-inline justify-content-center pt-3">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only" for="semail">Your email</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control mr-md-1" style="max-width: 200px;" placeholder="Phone # - Optional">
+                    <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Email Address - Required" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div> <!--//container-->
+    </section> <!-- newsletter: show this on desktop -->
+    
+    <section class="cta-section theme-bg-light py-5 mobile-show">
+        <div class="container text-center">
+            <h2 class="heading">Join the Newsletter</h2>
+            <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
+            <form class="signup-form form-inline justify-content-center pt-3">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only" for="semail">Your email</label>
+                    <input
+                        type="tel" id="phone" name="phone" pattern="[+]{1}[0-9]{11,14}"
+                        class="form-control mr-md-1 mb-2" style="max-width: 200px; margin: auto;"
+                        placeholder="Phone # - Optional">
+                    <input
+                        type="email" id="semail" name="semail1"
+                        class="form-control mr-md-1 mb-2 semail"
+                        placeholder="Email Address - Required">
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div> <!--//container-->
+    </section> <!-- newsletter: show this on mobile -->
 
 {% endblock content %}

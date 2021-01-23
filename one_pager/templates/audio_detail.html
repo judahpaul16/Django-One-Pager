@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<article class="blog-posti py-5 p-md-5">
+	<div class="container centered mb-3" style="text-align: center">
+       	<header class="blog-post-header">
+        	<h2 class="title mb-4">{{ audio.header }}</h2>
+     	</header>
+    	{{ audio.audio_file_player|safe }}
+	</div>
+</article>
+{% endblock content %}

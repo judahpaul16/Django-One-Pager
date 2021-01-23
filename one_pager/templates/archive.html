@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% load user_agents %}
+	<section class="centered py-5">
+		<div class="container" {% if request|is_pc %} style="margin-left: 65px;" {% endif %}>
+		  <h2 style="text-align: center">Available Archives</br></h2>
+		  <form method="POST" class="form-inline justify-content-center mt-4 mb-4">
+			  {% csrf_token %}
+			  <div class="form-group">
+				  <a class="btn btn-primary mr-2" href="{% url 'videos' %}">Videos</a>
+				  <a class="btn btn-primary" href="{% url 'audio' %}">Audio</a>
+			  </div>
+		  </form>
+		</div>
+	</section>
+{% endblock content %}

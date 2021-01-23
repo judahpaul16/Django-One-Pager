@@ -1,6 +1,16 @@
-.navbar-nav li a.nav-link{
+html {
+  overflow: auto;
+  }
+
+.navbar-nav li a.nav-link {
 	text-decoration : none !important;
 	transition: color .3s;
+}
+
+.navbar-nav li a.nav-link:hover #admin{
+	color: #2e3553 !important;
+	text-decoration : none !important;
+    transition: color .3s;	
 }
 
 .mobile-show{
@@ -239,6 +249,9 @@
 }
 .media-body h3 a:hover:not(.active) {color: #5D6BA7 !important;}
 
+.pagination ul {
+	margin-bottom: 0 !important;
+}
 .pagination a {
 	color: black;
 	float: left;
@@ -255,37 +268,37 @@
 }
 .pagination a:hover:not(.active) {color: white;background-color: #5d6db4;}
 
-.testemonial {
-	border: 2px solid #ccc;
-	border-radius: 5px;
+.testimonial {
+	border: solid #f0f0f0;
+	border-radius: 10px;
 	padding: 15px;
 	margin: 15px 50px;
 	font-family: 'Segoe UI';
 }
 
-.testemonial::after {
+.testimonial::after {
 	content: "";
 	clear: both;
 	display: table;
 }
 
-.testemonial img {
+.testimonial img {
 	float: left;
 	margin-right: 20px;
 	border-radius: 50%;
 }
 
-.testemonial span {
+.testimonial span {
 	font-size: 20px;
 	margin-right: 15px;
 }
 
 @media (max-width: 500px) {
-	.testemonial {
+	.testimonial {
 		text-align: center;
 	}
 
-	.testemonial img {
+	.testimonial img {
 		margin: auto;
 		float: none;
 		display: block;
@@ -318,4 +331,123 @@
 	left: 90%;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+}
+
+.video-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.video-container video {
+  width: 750px;
+}
+.video-grid video{
+  border: solid #ebebeb;
+  border-radius: 20px;
+  max-width: 320px;
+  transition: transform .2s;
+  }
+.video-grid video::-webkit-media-controls {
+  display: none;
+  }
+.video-grid video:hover {
+  transform: scale(1.05);
+}
+@media (max-width: 450px) {
+  .video-grid video {
+	  max-width: 250px;
+	  }
+}
+
+  .video-container video {
+  	width: 100%;
+	margin: auto;
+  }
+
+@media (min-width: 1536px) {
+  .centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translateX(-35%) translateY(-50%);
+	transform: translateX(-35%) translateY(-50%);
+  }
+}
+
+.grid-container > *{
+  display: inline-grid;
+}
+
+#top{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#top i{
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#top:hover{
+    background: rgba(0, 0, 0, 0.9);
+}
+#top:hover i{
+    color: #fff;
+    top: 5px;
+}
+
+.profile {
+  display:block;
+  overflow: hidden;
+  margin: auto;
+  width: auto;
+  text-align: center;
+  background-color: #fafafb;
+  border-radius: 25px;
+  border: solid #f0f0f0;
+ }
+
+#outer {
+    overflow: hidden;
+}
+
+#outer div {
+    display: inline-block;
+}
+
+#loop {
+    white-space: nowrap;
+    animation: loop-anim 15s linear infinite;
+}
+
+@keyframes loop-anim {
+    0% {
+        margin-left: 0%;
+    }
+    100% {
+        margin-left: -100% /* This works because of the div between "outer" and "loop" */
+    }
 }

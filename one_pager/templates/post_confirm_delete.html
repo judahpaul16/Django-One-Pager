@@ -7,7 +7,7 @@
             {% csrf_token %}
             <div class="form-group">
                 <a class="btn btn-primary mr-2" href="{% url 'post-detail' object.id object.slug %}">Cancel</a>
-                <button class="btn btn-primary" style="color: white;" type="submit">Confirm</button>
+                <button class="btn btn-danger" style="color: white;" type="submit">Confirm</button>
             </div>
         </form>
     </div>
