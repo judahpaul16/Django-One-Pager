@@ -25,14 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE= True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_SSL_REDIRECT = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['198.58.105.84']
 
 
 # Application definition
@@ -95,9 +95,9 @@ WSGI_APPLICATION = 'one_pager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
+        'NAME': 'blog',
+        'USER': 'admin',
+        'PASSWORD': 'No$crash2020',
         'HOST': 'localhost',
         'PORT': '',
     }

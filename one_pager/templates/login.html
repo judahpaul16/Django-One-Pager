@@ -1,23 +1,25 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <section style="margin: 179px auto;">    
-        <div class="container">
+{% load user_agents %}
+    <section class="profile centered">    
+        <div class="container px-4 py-4">
             <div class="text-left">
                 <form method="POST">
                     {% csrf_token %}
-                    <fieldset class="form-group">
+                    <fieldset class="profile-form-group">
                         <legend class="border-bottom mb-4">Log In</legend>
                         {{ form|crispy }}
                     </fieldset>
-                    <div class="form-group">
+                    <div class="form-group" style="text-align: center !important;">
                         <button class="btn btn-primary" type="submit">Log In</button>
                     </div>
                 </form>
-                <div class="border-top pt-3">
+                <div class="border-top pt-3" {% if request|is_mobile %}style="text-align: center !important;"{% endif %}>
                     <small class="text-muted mr-2">
                         Forgot Your Password?<a class="ml-2" href="{% url 'password_reset' %}" style="color:black">Reset Password</a>
                     </small>
+					{% if request|is_mobile %}<br>{% endif %}
                     <small class="text-muted">
                         Need an Account? <a class="ml-2" href="{% url 'register' %}" style="color:black">Create an Account</a>
                     </small>

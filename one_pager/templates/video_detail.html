@@ -10,6 +10,10 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		document.getElementById('autoplay').play();
+	</script>
+
     <div class="container" style="text-align: center; {% if request|is_pc %} display: table; {% endif %}">
        	<header class="mb-4 {% if request|is_pc %} mt-3 {% endif %}" style="{% if request|is_pc %} text-align: left; {% else %} text-align: center; {% endif %}">
        		<div class="d-inline-block" style="{% if request|is_pc %} display: table-row; {% endif %}">
@@ -22,6 +26,7 @@
 			</p>
        	</header>
 	</div>
+
 	<div class="container mb-5">
 		<div class="blog-comments-section">
 			<div id="disqus_thread"></div>

@@ -7,28 +7,28 @@
         {% endif %}
     </h2>
 	{% for testimonial in testimonials %}
-			<div class="testimonial theme-bg-light mobile-hide" style="margin: 2% 25% !important;">
-				<img src="{{ testimonial.author.profile.profile_picture.url }}" alt="Avatar" style="margin: 20px 20px 20px 25px; width:130px;">
-				<div class="container" style="margin: 20px auto 15px auto">
+		<div class="container">
+			<div class="testimonial theme-bg-light mobile-hide" style="margin: 2% auto !important;">
+				<img src="{{ testimonial.author.profile.profile_picture.url }}" alt="Avatar" style="margin: 20px; width:130px; display: inline;">
+				<div class="container" style="margin: 20px auto 15px auto; display: inline;">
 					<p class="d-inline"><span>{{ testimonial.author.first_name }} {{ testimonial.author.last_name }}</span>{{ testimonial.timestamp|date:"F d, Y" }}</p><br><br>
 					<strong>{{ testimonial.title }}</strong><br>
-					<p class="d-inline" style="min-height: 36px;">{{ testimonial.content }}</p>
+					<p class="d-inline">{{ testimonial.content }}</p>
+					{% if user.is_authenticated %}
+						<div class="test-container px-0 py-2" style="{% if user == testimonial.author %}width: 16%;{% elif user.is_superuser %}width: 8%;{% endif %}margin: auto;">
+							<form class="d-inline-flex" style="width: 100%;">
+								{% if user == testimonial.author %}
+									<a class="btn btn-primary mr-2" type="submit" href="{% url 'testimonial-update' testimonial.id %}">Edit</a>
+									<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' testimonial.id %}">Delete</a>
+								{% elif user.is_superuser %}
+									<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' testimonial.id %}">Delete</a>
+								{% endif %}
+							</form>
+						</div>
+					{% endif %}
 				</div>
-				{% if user.is_authenticated %}
-				<div class="test-container px-0">
-					<form class="center" style="width: 100%;">
-						{% if user == testimonial.author %}
-							<a class="btn btn-primary mr-2" type="submit" href="{% url 'testimonial-update' %}">Edit</a>
-							<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' %}">Delete</a>
-						{% endif %}
-						{% if user.is_superuser and user != testimonial.author %}
-							<a class="btn btn-primary mr-2" type="submit" href="{% url 'testimonial-update' %}">Edit</a>
-							<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' %}">Delete</a>
-						{% endif %}
-					</form>
-				</div>
-				{% endif %}
 			</div>
+		</div>
 	{% endfor %} <!-- desktop testimonials -->
  
     {% for testimonial in testimonials %}
@@ -42,12 +42,12 @@
             </div>
             {% if user.is_authenticated %}
             <div class="container">
-                <form class="d-md-flex mt-3 mb-2">
+                <form class="block mt-3 mb-2">
 					{% if user == testimonial.author %}
-                    	<a class="btn btn-primary mr-2" type="submit" href="{% url 'testimonial-update' %}">Edit</a>
-                    	<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' %}">Delete</a>
+                    	<a class="btn btn-primary mr-2" type="submit" href="{% url 'testimonial-update' testimonial.id %}">Edit</a>
+                    	<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' testimonial.id %}">Delete</a>
 					{% elif user.is_superuser %}
-						<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' %}">Delete</a>
+						<a class="btn btn-danger" type="submit" href="{% url 'testimonial-delete' testimonial.id %}">Delete</a>
 					{% endif %}
                 </form>
             </div>

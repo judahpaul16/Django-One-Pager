@@ -124,7 +124,7 @@ class VideoFile(models.Model):
     def video_file_player(self):
         if self.video_file:
             file_url = settings.MEDIA_URL + str(self.video_file)
-            player_string = f"<video id='video' controls><source src={file_url} type='video/mp4'>Your browser does not support the video tag.</video>"
+            player_string = f"<video id='autoplay' controls><source src={file_url} type='video/mp4'>Your browser does not support the video tag.</video>"
             return player_string
 
     video_file_player.allow_tags = True

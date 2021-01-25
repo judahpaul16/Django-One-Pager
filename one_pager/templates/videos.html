@@ -3,13 +3,18 @@
 {% block content %}
 {% load user_agents %}
 <article class="{% if request|is_mobile %}py-5 p-md-5{% else %} py-4{% endif %}">
+	<script>
+		window.onload = function () {
+			$(".video-grid video").prop('muted', true)
+		}
+	</script>
 	<header class="px-2" style="text-align: center;">
-		<h2 style="font-size: xxx-large; margin: auto 0.2em;">
-			Video Archive
+		<h2 style="font-size: 2.5em; margin: auto 0.1em;">
+			Videos Archive
 		</h2>
 	</header>
-	<hr style="margin-bottom: 2rem; width: 80%;">
-    <div class="profile grid-container px-3 py-3" style="text-align: center; width: 90%; margin: 0 auto 1em;">
+	<hr style="margin-bottom: 1.5rem; width: 80%;">
+    <div class="profile grid-container px-3 py-3" style="text-align: center; width: 90%; margin: 0 auto 1em; border-radius: 10px;">
 		{% for video in page_obj %}
 			<div class="grid-item mb-2 px-2">
         		<header class="blog-post-header">
@@ -29,23 +34,23 @@
 			<ul class="pagination">
 				{% if page_obj.has_previous %}
 					<a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-						&larr;
+						<i class="fas fa-angle-left"></i>
 					</a>
 				{% endif %}
 				{% for num in page_obj.paginator.page_range %}
 					{% if page_obj.number == num %}
 						<a href="?page={{ num }}" class="active">
-							{{ num }}
+							<strong>{{ num }}</strong>
 						</a>
 					{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
 						<a href="?page={{ num }}">
-							{{ num }}
+							<strong>{{ num }}</strong>
 						</a>
 					{% endif %}
 				{% endfor %}
 				{% if page_obj.has_next %}
 					<a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-						&rarr;
+						<i class="fas fa-angle-right"></i>
 					</a>
 				{% endif %}
 			</ul>

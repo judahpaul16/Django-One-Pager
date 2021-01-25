@@ -40,7 +40,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, f'Post successfully created!')
+        messages.success(self.request, f'Post created!')
         return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -50,7 +50,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, f'Post successfully updated!')
+        messages.info(self.request, f'Post updated!')
         return super().form_valid(form)
 
     def test_func(self):
@@ -69,6 +69,10 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author or self.request.user.is_superuser:
             return True
         return False
+    
+    def delete(self, request, *args, **kwargs):
+        messages.info(self.request, f'Post deleted!')
+        return super(PostDeleteView, self).delete(request, *args, **kwargs)
 
 class TestimonialCreateView(LoginRequiredMixin, CreateView):
     model = Testimonial
@@ -82,7 +86,7 @@ class TestimonialCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, f'Testimonial successfully updated!')
+        messages.success(self.request, f'Testimonial created!')
         return super().form_valid(form)
 
 class TestimonialUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -97,7 +101,7 @@ class TestimonialUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, f'Testimonial successfully updated!')
+        messages.info(self.request, f'Testimonial updated!')
         return super().form_valid(form)
 
     def test_func(self):
@@ -117,7 +121,11 @@ class TestimonialDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView)
             return True
         return False
 
-class AudioFileAuditView(LoginRequiredMixin, DetailView, FormView):
+    def delete(self, request, *args, **kwargs):
+        messages.info(self.request, f'Testimonial deleted!')
+        return super(TestimonialDeleteView, self).delete(request, *args, **kwargs)
+
+class AudioFileAuditView(LoginRequiredMixin, UserPassesTestMixin, DetailView, FormView):
     model = AudioFile
     form_class = AuditForm
     template_name = 'audit-audio.html'
@@ -129,7 +137,8 @@ class AudioFileAuditView(LoginRequiredMixin, DetailView, FormView):
         return context
 
     def form_valid(self, form):
-        messages.success(self.request, f'Audio file successfully audited!')
+        audio = self.get_object().header
+        messages.success(self.request, f'\'{audio}\' audited!')
         return super().form_valid(form)
 
     def post(self, request, pk):
@@ -163,7 +172,7 @@ class AudioFileAuditView(LoginRequiredMixin, DetailView, FormView):
             return False
         return True
 
-class AudioListView(ListView):
+class AudioListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = AudioFile
     template_name = 'audio.html'
     context_object_name = 'audio'
@@ -173,14 +182,24 @@ class AudioListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+    
+    def test_func(self):
+        if self.request.user.is_staff:
+            return True
+        return False
 
-class AudioDetailView(DetailView):
+class AudioDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = AudioFile
     template_name = 'audio_detail.html'
     context_object_name = 'audio'
+    
+    def test_func(self):
+        if self.request.user.is_staff:
+            return True
+        return False
 
 
-class VideoListView(ListView):
+class VideoListView(LoginRequiredMixin, ListView):
     model = VideoFile
     template_name = 'videos.html'
     context_object_name = 'videos'
@@ -190,18 +209,13 @@ class VideoListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-class VideoDetailView(DetailView):
+    
+class VideoDetailView(LoginRequiredMixin, DetailView):
     model = VideoFile
     template_name = 'video_detail.html'
     context_object_name = 'video'
-
-class ArchiveView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    
+class ArchiveView(LoginRequiredMixin, ListView):
     model = VideoFile
     template_name = 'archive.html'
     
-    def test_func(self):
-        if self.request.user.is_staff:
-            return True
-        return False
-

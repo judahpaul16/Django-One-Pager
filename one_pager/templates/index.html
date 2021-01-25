@@ -2,13 +2,14 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% load static %}
+{% load user_agents %}
 
 	<a name="top"></a>
 	<header class="footer text-center py-2 outer theme-bg-dark">
 		<div>
 			<div id="loop">
 				<small id="content" style="width: auto">
-					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.&nbsp;
+					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					Lorem ipsum dolor sit amet, consectetaur adipisicing elit.
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -26,7 +27,6 @@
 			</div>
 		</div>
      </header>
-
 	
     <div class="container mt-5">
     	<div class="conatiner mb-5" style="text-align: center;">
@@ -58,11 +58,11 @@
             </div>
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="arrow-left">&lt;</span>
+                <span class="arrow-left"><i class="fas fa-angle-left"></i></span>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="arrow-right">&gt;</span>
+                <span class="arrow-right"><i class="fas fa-angle-right"></i></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
@@ -77,8 +77,8 @@
     </section>
     <hr style="width: 75%; margin: 0 auto 13px;">
 
-    <section class="blog-list px-3 py-5 p-md-5">
-        <div class="container px-5 py-5" style="background-color: #fafafb; border-radius: 25px; border-style: solid; border-color: #f0f0f0;">
+    <section id="blog_list" class="blog-list px-3 py-5 p-md-5">
+        <div class="container px-5 py-5" style="background-color: #fafafb; border-radius: 25px; border-style: solid; border-color: #f0f0f0; margin-bottom: 1em;">
 			<h1 style="margin-bottom: 1em; text-align: center">
 				Lastest Posts
 			</h1>
@@ -107,24 +107,24 @@
             <div class="pagination d-flex justify-content-center">
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                            &larr;
+                        <a href="?page={{ page_obj.previous_page_number }}#blog_list" aria-label="Previous">
+							<i class="fas fa-angle-left"></i>
                         </a>
                     {% endif %}
                     {% for num in page_obj.paginator.page_range %}
                         {% if page_obj.number == num %}
-                            <a href="?page={{ num }}" class="active">
-                                {{ num }}
+                            <a href="?page={{ num }}#blog_list" class="active">
+								<strong>{{ num }}</strong>
                             </a>
                         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                            <a href="?page={{ num }}">
-                                {{ num }}
+                            <a href="?page={{ num }}#blog_list">
+								<strong>{{ num }}</strong>
                             </a>
                         {% endif %}
                     {% endfor %}
                     {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                            &rarr;
+                        <a href="?page={{ page_obj.next_page_number }}#blog_list" aria-label="Next">
+							<i class="fas fa-angle-right"></i>
                         </a>
                     {% endif %}
                 </ul>
@@ -132,6 +132,7 @@
         {% endif %}
     </section>
     <hr style="width: 100%; margin: 0;">
+
     <section class="cta-section theme-bg-light py-5 alert-dismissible mobile-hide"
             style="padding: 48px 0px;" id="newsletter">
         <div class="container text-center" style="position: relative; left: 25px;">
@@ -155,7 +156,7 @@
         </div> <!--//container-->
     </section> <!-- newsletter: show this on desktop -->
     
-    <section class="cta-section theme-bg-light py-5 mobile-show">
+    <section class="cta-section theme-bg-light px-3 py-5 mobile-show">
         <div class="container text-center">
             <h2 class="heading">Join the Newsletter</h2>
             <div class="intro">Subscribe and get my latest blog post in your inbox.</div>
@@ -183,11 +184,26 @@
         {% include 'testimonial.html' %}
     {% endblock testimonial %}
 
-	<div class="callout mobile-hide">
-	  <div class="callout-header">Notification</div>
-	  <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+	<script>
+		window.onscroll = function() {
+		  if ( window.pageYOffset < 50 || $('#callout').className == 'user-closed' ) {
+			$('#callout').slideUp(250);
+		  }
+		  else {
+			$('#callout').slideDown(250);
+		  }
+		}
+		function closed() {
+		  $('#callout').fadeOut(250, function() {
+			$(this).removeClass().attr('class', 'user-closed').style('display', 'none');
+		  });
+		}
+	</script>
+	<div id="callout" class="callout mobile" style="display: none;">
+	  <div class="callout-header">Welcome Back</div>
+	  <span class="closebtn" onclick="closed()">×</span>
 	  <div class="callout-container">
-		<p>Some text to describe the callout message. <a href="#">Learn more</a> or close it if it is in your way.</p>
+		<p>Some text to describe the welcome message. <a href="#">Learn more</a> or close it if it is in your way.</p>
 	  </div>
 	</div>
         

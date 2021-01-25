@@ -5,6 +5,10 @@ A simple blog app made with Python Django.
 
 ![](profile.png)
 
+![](posts.png)
+
+![](post.png)
+
 ![](videos.png)
 
 ![](video.png)
