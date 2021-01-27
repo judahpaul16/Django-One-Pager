@@ -16,3 +16,4 @@ A simple blog app made with Python Django.
 ![](testemonials.png)
 
 ![](django_admin.png)
+
