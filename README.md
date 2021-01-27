@@ -1,9 +1,7 @@
 # Django-One-Pager
-A simple blog app made with Python Django.
+A simple blog app made with the Django Framework.
 
 ![](home_page.png)
-
-![](profile.png)
 
 ![](posts.png)
 
@@ -14,6 +12,8 @@ A simple blog app made with Python Django.
 ![](video.png)
 
 ![](testemonials.png)
+
+![](profile.png)
 
 ![](django_admin.png)
 
